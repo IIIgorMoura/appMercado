@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 import ESTILOS from '../styles/ESTILOS';
 
+import Header from '../components/header';
 
 export function Home() {
 
@@ -11,23 +12,7 @@ export function Home() {
 
   return (
     <View style={ESTILOS.container}>
-      <View style={ESTILOS.header}>
-        
-        {/* INSERIR LOGO */}
-        {/* <Image source={require('../assets/')} /> */}
-
-        <View style={ESTILOS.headerTabs}>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('index')}>
-            <Text style={ESTILOS.txtBranco}>Início</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('produtos')}>
-            <Text style={ESTILOS.txtBranco}>Produtos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('novidades')}>
-            <Text style={ESTILOS.txtBranco}>Novidades</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Header navigation={navigation} />
 
       <TouchableOpacity style={ESTILOS.btnDestaque}>
         <Text style={ESTILOS.txtBranco}>Adicionar Nova Lista</Text>

@@ -9,19 +9,34 @@ export default function Routes() {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false,
+                    animationEnabled: true,
+                    gestureEnabled: true,
+                    gestureDirection: 'horizontal',
+                }}
                 name="index"
                 component={Home}
             />
 
             <Stack.Screen
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false,
+                    animationEnabled: true,
+                    gestureEnabled: true,
+                    gestureDirection: 'horizontal',
+                }}
                 name="produtos"
                 component={Produtos}
             />
 
             <Stack.Screen
-                options={{ headerShown: false }}
+                options={{
+                    headerShown: false,
+                    animationEnabled: true,
+                    gestureEnabled: true,
+                    gestureDirection: 'horizontal',
+                }}
                 name="novidades"
                 component={Novidades}
             />

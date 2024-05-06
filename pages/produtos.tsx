@@ -2,7 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import ESTILOS from '../styles/ESTILOS'
+import ESTILOS from '../styles/ESTILOS';
+
+import Header from '../components/header';
 
 export function Produtos() {
 
@@ -10,24 +12,8 @@ export function Produtos() {
 
   return (
     <View style={ESTILOS.container}>
-      <View style={ESTILOS.header}>
-        
-        {/* INSERIR LOGO */}
-        {/* <Image source={require('../assets/')} /> */}
+      <Header navigation={navigation} />
 
-        <View style={ESTILOS.headerTabs}>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('index')}>
-            <Text style={ESTILOS.txtBranco}>Início</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('produtos')}>
-            <Text style={ESTILOS.txtBranco}>Produtos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('novidades')}>
-            <Text style={ESTILOS.txtBranco}>Novidades</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      
       <Text>Open up App.js to start working on your app!</Text>
       <StatusBar style="auto" />
     </View>
