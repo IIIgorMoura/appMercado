@@ -39,6 +39,16 @@ const ESTILOS = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
+  modal: {
+    backgroundColor: "#000",
+    width: "85%",
+    height: "85%",
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+},
 });
 
 export default ESTILOS

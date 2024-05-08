@@ -8,11 +8,14 @@ import ESTILOS from '../styles/ESTILOS';
 export function CriarLista({ fecharModalCriarLista }) {
 
     return (
-        <View style={ESTILOS.container}>
+        <View style={estiloModal.container}>
 
-            <TouchableOpacity style={ESTILOS.btnDestaque} onPress={fecharModalCriarLista}>
-                <Text style={ESTILOS.txtBranco}>Cancelar</Text>
-            </TouchableOpacity>
+            <View style={estiloModal.content}>
+                <TouchableOpacity style={ESTILOS.btnDestaque} onPress={fecharModalCriarLista}>
+                    <Text style={ESTILOS.txtBranco}>Cancelar</Text>
+                </TouchableOpacity>
+            </View>
+
 
 
 
@@ -21,7 +24,7 @@ export function CriarLista({ fecharModalCriarLista }) {
     );
 }
 
-const styles = StyleSheet.create({
+const estiloModal = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgba(25,25,25,0.6)',
@@ -29,8 +32,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     content: {
-        backgroundColor: "#FFF",
+        backgroundColor: "#fff",
         width: "85%",
+        height: "85%",
         paddingTop: 10,
         paddingBottom: 10,
         justifyContent: 'center',

@@ -33,7 +33,7 @@ export function Home() {
         animationType="slide"
         transparent={true}
         visible={ativoModalCriarLista}
-        
+        style={ESTILOS.modal}
       >
         <CriarLista fecharModalCriarLista={() => setModalCriarLista(false)}/>
       </Modal>
