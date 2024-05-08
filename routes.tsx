@@ -5,8 +5,34 @@ import { Novidades } from './pages/novidades';
 import { StatusBar } from 'react-native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-
 const Tab = createMaterialTopTabNavigator();
+
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
+
+function HomeStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
+    );
+}
+
+function ProdutosStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="Produtos"
+                component={Produtos}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
+    );
+}
 
 export default function Routes() {
     return (
@@ -23,6 +49,8 @@ export default function Routes() {
             <Tab.Screen name="produtos" component={Produtos} />
             <Tab.Screen name="novidades" component={Novidades} />
         </Tab.Navigator>
+
+        
     );
 }
 

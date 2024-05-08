@@ -4,8 +4,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import ESTILOS from '../styles/ESTILOS';
 
-import Header from '../components/Header';
-
 export function Novidades() {
 
     const navigation = useNavigation();
