@@ -7,6 +7,7 @@ const Header = ({ navigation }) => {
   return (
     <View style={ESTILOS.header}>
       <View style={ESTILOS.headerTabs}>
+        
         <TouchableOpacity style={ESTILOS.headerTab} onPress={() => navigation.navigate('index')}>
           <Text style={ESTILOS.txtBranco}>Início</Text>
         </TouchableOpacity>

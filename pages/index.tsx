@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 import ESTILOS from '../styles/ESTILOS';
 
-import Header from '../components/header';
+import Header from '../components/Header';
 
 export function Home() {
 
@@ -12,13 +12,12 @@ export function Home() {
 
   return (
     <View style={ESTILOS.container}>
-      <Header navigation={navigation} />
 
       <TouchableOpacity style={ESTILOS.btnDestaque}>
         <Text style={ESTILOS.txtBranco}>Adicionar Nova Lista</Text>
       </TouchableOpacity>
 
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 }

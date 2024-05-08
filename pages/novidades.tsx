@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import ESTILOS from '../styles/ESTILOS';
 
-import Header from '../components/header';
+import Header from '../components/Header';
 
 export function Novidades() {
 
@@ -12,10 +12,9 @@ export function Novidades() {
 
     return (
         <View style={ESTILOS.container}>
-            <Header navigation={navigation} />
 
             <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
+            <StatusBar style="light" />
         </View>
     );
 }
