@@ -14,16 +14,13 @@ export function Home() {
   const navigation = useNavigation();
 
   const [ativoModalCriarLista, setModalCriarLista] = useState(false);
-  const [ativoModalBackground, setModalBackground] = useState(false)
 
   const abrirModalCriarLista = () => {
-    setModalBackground(true);
     setModalCriarLista(true);
   };
 
   const fecharModalCriarLista = () => {
     setModalCriarLista(false);
-    setModalBackground(false);
   };
 
   return (
