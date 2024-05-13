@@ -29,6 +29,9 @@ const ESTILOS = StyleSheet.create({
   txtBranco: {
     color: '#fff',
   },
+  txtRoxo: {
+    color: "#6622F6",
+  },
   btnDestaque: {
     width: '90%',
     backgroundColor: "#6622F6",
@@ -38,6 +41,10 @@ const ESTILOS = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 5,
     marginBottom: 5,
+    flexDirection: 'row',
+  },
+  btnDestaqueIcon: {
+    margin: 10,
   },
   modal: {
     backgroundColor: "#000",
@@ -47,8 +54,9 @@ const ESTILOS = StyleSheet.create({
     paddingBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
-},
+    borderRadius: 15,
+  },
+
 });
 
 export default ESTILOS

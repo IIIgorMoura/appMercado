@@ -6,14 +6,14 @@ import { useState } from "react";
 import ESTILOS from '../styles/ESTILOS';
 import estiloModal from '../styles/estiloModal';
 
-export function CriarLista({ fecharModalCriarLista }) {
+export function NovoProduto({ fecharModalCriarLista }) {
 
     return (
         <View style={estiloModal.container}>
 
             <View style={estiloModal.content}>
 
-                <Text>Criar Nova Lista</Text>
+                <Text>Adicionar Novo Produto</Text>
 
                 <View style={estiloModal.baseBtnsModal}>
                     <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
@@ -35,4 +35,4 @@ const estiloModalEspecifico = StyleSheet.create({
 
 });
 
-export default CriarLista
+export default NovoProduto
