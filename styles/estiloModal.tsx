@@ -51,7 +51,6 @@ const estiloModal = StyleSheet.create({
         marginBottom: 5, 
     },
     input: {
-        width: '95%',
         padding: 10,
         borderBottomColor: '#000',
         borderWidth: 2,

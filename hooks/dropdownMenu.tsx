@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Image, Modal } from 'react-native';
+import { View, Text } from 'react-native';
+import {Picker} from '@react-native-picker/picker';
 import estiloModal from '../styles/estiloModal';
 
-function DropdownMenu() {
+export function DropdownMenu() {
     const [opcSelecionada, setOpcSelecionada] = useState('');
 
-    const handleSelectChange = (event) => {
-        setOpcSelecionada(event.target.value);
+    const handleSelectChange = (itemValue) => {
+        setOpcSelecionada(itemValue);
     };
 
     return (
-        <View>
-            <div style={estiloModal.formInput}>
-                <div style={estiloModal.formInputText}>
-                    <label htmlFor="compra"><Text>Tipo de compra:</Text></label>
-                </div>
+        <View style={estiloModal.formInput}>
+            <View style={estiloModal.formInputText}>
+                <Text>Tipo de compra:</Text>
+            </View>
 
-                <select style={estiloModal.input} id="compra" value={opcSelecionada} onChange={handleSelectChange}>
-                    <option value=""><Text>Selecione...</Text></option>
-                    <option value="compra1"><Text>Compra do Mês</Text></option>
-                    <option value="compra2"><Text>Compra da Semana</Text></option>
-                    <option value="compra3"><Text>Compra do Dia</Text></option>
-                    <option value="compra3"><Text>HortiFruti</Text></option>
-                </select>
-            </div>
+            <Picker
+                style={estiloModal.input}
+                selectedValue={opcSelecionada}
+                onValueChange={handleSelectChange}
+            >
+                <Picker.Item label="Selecione..." value="" />
+                <Picker.Item label="Compra do Mês" value="compra1" />
+                <Picker.Item label="Compra da Semana" value="compra2" />
+                <Picker.Item label="Compra do Dia" value="compra3" />
+                <Picker.Item label="HortiFruti" value="compra4" />
+            </Picker>
         </View>
-
     );
 }
 
