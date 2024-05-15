@@ -7,41 +7,12 @@ import { StatusBar } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 const Tab = createMaterialTopTabNavigator();
 
-import { createStackNavigator } from '@react-navigation/stack';
-const Stack = createStackNavigator();
-
-function HomeStack() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
-            />
-        </Stack.Navigator>
-    );
-}
-
-function ProdutosStack() {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Produtos"
-                component={Produtos}
-                options={{ headerShown: false }}
-            />
-        </Stack.Navigator>
-    );
-}
-
 export default function Routes() {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#fff', // Cor do texto da aba ativa
-                // tabBarInactiveTintColor: '#888', // Cor do texto das abas inativas
-                // tabBarLabelStyle: { fontSize: 16, fontWeight: 'bold' }, // Estilo do texto da aba
-                tabBarIndicatorStyle: { backgroundColor: '#fff', height: 4 }, // Estilo da barra indicadora
+                tabBarActiveTintColor: '#fff',
+                tabBarIndicatorStyle: { backgroundColor: '#fff', height: 4 }, 
                 tabBarStyle: { backgroundColor: '#6622F6', paddingTop: StatusBar.currentHeight },
             }}
         >
@@ -53,52 +24,3 @@ export default function Routes() {
         
     );
 }
-
-// import { createStackNavigator } from '@react-navigation/stack';
-
-// import Header from './components/Header';
-
-// const Stack = createStackNavigator();
-
-// export default function Routes() {
-//     return (
-
-//             <Stack.Navigator>
-//                 <Header navigation={navigation} />
-//                 <Stack.Screen
-//                     options={{
-//                         headerShown: false,
-//                         animationEnabled: true,
-//                         gestureEnabled: true,
-//                         gestureDirection: 'horizontal',
-//                     }}
-//                     name="index"
-//                     component={Home}
-//                 />
-
-//                 <Stack.Screen
-//                     options={{
-//                         headerShown: false,
-//                         animationEnabled: true,
-//                         gestureEnabled: true,
-//                         gestureDirection: 'horizontal',
-//                     }}
-//                     name="produtos"
-//                     component={Produtos}
-//                 />
-
-//                 <Stack.Screen
-//                     options={{
-//                         headerShown: false,
-//                         animationEnabled: true,
-//                         gestureEnabled: true,
-//                         gestureDirection: 'horizontal',
-//                     }}
-//                     name="novidades"
-//                     component={Novidades}
-//                 />
-//             </Stack.Navigator>
-//     );
-// };
-
-

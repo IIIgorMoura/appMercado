@@ -46,9 +46,18 @@ const estiloModal = StyleSheet.create({
     formInput: {
         width: '95%',
     },
+    formInputText: {
+        marginTop: 30,
+        marginBottom: 5, 
+    },
     input: {
         width: '95%',
         padding: 10,
+        borderBottomColor: '#000',
+        borderWidth: 2,
+        borderTopWidth: 0,
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
     },
 });
 

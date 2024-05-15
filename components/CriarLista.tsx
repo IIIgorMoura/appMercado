@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, } from 'react-native';
 
 import { useState } from "react";
 
 import ESTILOS from '../styles/ESTILOS';
 import estiloModal from '../styles/estiloModal';
+import DropdownMenu from '../hooks/dropdownMenu';
 
 export function CriarLista({ fecharModalCriarLista }) {
     const [novaLista, setNovaLista] = useState('');
@@ -25,7 +26,7 @@ export function CriarLista({ fecharModalCriarLista }) {
                 <Text>Criar Nova Lista</Text>
 
                 <View style={estiloModal.formInput}>
-                    <Text>Nome da Lista</Text>
+                    <Text style={estiloModal.formInputText}>Nome da Lista</Text>
                     <TextInput
                         placeholder='Insira o nome da lista...'
                         placeholderTextColor='gray'
@@ -37,7 +38,7 @@ export function CriarLista({ fecharModalCriarLista }) {
 
 
                 <View style={estiloModal.formInput}>
-                    <Text>Limite de Custo</Text>
+                    <Text style={estiloModal.formInputText}>Limite de Custo</Text>
                     <TextInput
                         placeholder='Insira o valor limite...'
                         placeholderTextColor='gray'
@@ -48,6 +49,7 @@ export function CriarLista({ fecharModalCriarLista }) {
                     />
                 </View>
 
+                <DropdownMenu />
 
                 <View style={estiloModal.baseBtnsModal}>
                     <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
@@ -66,7 +68,6 @@ export function CriarLista({ fecharModalCriarLista }) {
 }
 
 const estiloModalEspecifico = StyleSheet.create({
-
 });
 
 export default CriarLista
