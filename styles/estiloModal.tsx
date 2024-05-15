@@ -43,6 +43,13 @@ const estiloModal = StyleSheet.create({
         height: '10%',
         justifyContent: 'center',
     },
+    formInput: {
+        width: '95%',
+    },
+    input: {
+        width: '95%',
+        padding: 10,
+    },
 });
 
 export default estiloModal
