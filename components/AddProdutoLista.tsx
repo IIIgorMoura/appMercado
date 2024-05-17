@@ -1,23 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
+import * as Animatable from 'react-native-animatable';
+
 import { useState } from "react";
 
 import ESTILOS from '../styles/ESTILOS';
 import estiloModal from '../styles/estiloModal';
 
-export function AddProdutoLista({ fecharModalCriarLista }) {
+export function AddProdutoLista({ fecharModalListaAdicionarProdutos }) {
 
     return (
-        <View style={estiloModal.container}>
+        <View style={estiloModalEspecifico.container}>
 
             <View style={estiloModal.content}>
 
                 <Text>Adicionar Produtos à Lista</Text>
 
                 <View style={estiloModal.baseBtnsModal}>
-                    <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
-                        <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
+                    <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalListaAdicionarProdutos}>
+                        <Text style={ESTILOS.txtRoxo}>Voltar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={estiloModal.btnProximo}>
                         <Text style={ESTILOS.txtBranco}>Continuar</Text>
@@ -32,7 +34,12 @@ export function AddProdutoLista({ fecharModalCriarLista }) {
 }
 
 const estiloModalEspecifico = StyleSheet.create({
-
+    container: {
+        flex: 1,
+        backgroundColor: 'none',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
 
 export default AddProdutoLista

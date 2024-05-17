@@ -15,7 +15,7 @@ const estiloModal = StyleSheet.create({
         paddingBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 8,
+        borderRadius: 25,
     },
     btnVoltar: {
         width: '45%',

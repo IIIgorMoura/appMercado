@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, Modal, } from 'react-native';
+
+import * as Animatable from 'react-native-animatable';
 
 import { useState } from "react";
 
@@ -7,21 +9,28 @@ import ESTILOS from '../styles/ESTILOS';
 import estiloModal from '../styles/estiloModal';
 import DropdownMenu from '../hooks/dropdownMenu';
 
+import { AddProdutoLista } from './AddProdutoLista';
+
 export function CriarLista({ fecharModalCriarLista }) {
     const [novaLista, setNovaLista] = useState('');
+    const [ativoModalListaAdicionarProdutos, setModalListaAdicionarProdutos] = useState(false);
 
     const [nomeLista, setNomeLista] = useState('');
     const [limiteValor, setLimiteValor] = useState('');
 
     const handleAdicionar = () => {
-        onAdicionarNovaLista(novaLista);
+        // onAdicionarNovaLista(novaLista);
         setNovaLista('');
     };
+
+    const salvarNovaLista = () => {
+        setModalListaAdicionarProdutos(true);
+    }
 
     return (
         <View style={estiloModal.container}>
 
-            <View style={estiloModal.content}>
+            <Animatable.View delay={600} animation='fadeOutUp' style={estiloModal.content}>
 
                 <Text>Criar Nova Lista</Text>
 
@@ -55,12 +64,20 @@ export function CriarLista({ fecharModalCriarLista }) {
                     <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
                         <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={estiloModal.btnProximo}>
+                    <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovaLista}>
                         <Text style={ESTILOS.txtBranco}>Continuar</Text>
                     </TouchableOpacity>
                 </View>
 
-            </View>
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={ativoModalListaAdicionarProdutos}
+                    style={ESTILOS.modal}>
+                    <AddProdutoLista fecharModalListaAdicionarProdutos={() => setModalListaAdicionarProdutos(false)}/>
+                </Modal>
+
+            </Animatable.View>
 
             <StatusBar style="light" />
         </View>
