@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const ESTILOS = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#E8E8E8',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -56,7 +56,20 @@ const ESTILOS = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 15,
   },
-
+  listaElementos: {
+    marginVertical: 10,
+    width: '90%',
+  },
+  listaItem: {
+    width: '100%',
+    height: 125,
+    borderWidth: 1,
+    borderRadius: 25,
+    borderBottomColor: 'gray',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+  },
 });
 
 export default ESTILOS

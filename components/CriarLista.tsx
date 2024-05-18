@@ -1,90 +1,136 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View, Image, TextInput, Modal, } from 'react-native';
+// import React, { useState, useEffect } from "react";
+// import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal } from "react-native";
+// import { StatusBar } from "expo-status-bar";
+// import * as Animatable from "react-native-animatable";
+// import ESTILOS from "../styles/ESTILOS";
+// import estiloModal from "../styles/estiloModal";
+// import { criarTabela, adicionarListaCompras } from "../hooks/bancoLista";
 
-import * as Animatable from 'react-native-animatable';
+// export function CriarLista({ fecharModalCriarLista, setListasCompras }) {
+//   const [nomeLista, setNomeLista] = useState('');
+//   const [limiteValor, setLimiteValor] = useState('');
 
-import { useState } from "react";
+//   useEffect(() => {
+//     criarTabela();
+//   }, []);
 
-import ESTILOS from '../styles/ESTILOS';
-import estiloModal from '../styles/estiloModal';
-import DropdownMenu from '../hooks/dropdownMenu';
+//   const salvarNovaLista = () => {
+//     adicionarListaCompras(nomeLista, parseFloat(limiteValor), (insertId) => {
+//       console.log('Nova lista criada com ID: ', insertId);
+//       // Atualizar a lista de compras após a inserção
+//       setListasCompras((prevListas) => [
+//         ...prevListas,
+//         { id: insertId, nomeLista, limiteValor: parseFloat(limiteValor) }
+//       ]);
+//       // Fechar o modal
+//       fecharModalCriarLista();
+//     });
+//   };
 
-import { AddProdutoLista } from './AddProdutoLista';
+//   return (
+//     <View style={estiloModal.container}>
+//       <Animatable.View style={estiloModal.content}>
+//         <Text>Criar Nova Lista</Text>
+//         <View style={estiloModal.formInput}>
+//           <Text style={estiloModal.formInputText}>Nome da Lista</Text>
+//           <TextInput
+//             placeholder="Insira o nome da lista..."
+//             placeholderTextColor="gray"
+//             style={estiloModal.input}
+//             value={nomeLista}
+//             onChangeText={setNomeLista}
+//           />
+//         </View>
+//         <View style={estiloModal.formInput}>
+//           <Text style={estiloModal.formInputText}>Limite de Custo</Text>
+//           <TextInput
+//             placeholder="Insira o valor limite..."
+//             placeholderTextColor="gray"
+//             style={estiloModal.input}
+//             value={limiteValor}
+//             onChangeText={setLimiteValor}
+//             keyboardType="numeric"
+//           />
+//         </View>
+//         <View style={estiloModal.baseBtnsModal}>
+//           <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
+//             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
+//           </TouchableOpacity>
+//           <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovaLista}>
+//             <Text style={ESTILOS.txtBranco}>Continuar</Text>
+//           </TouchableOpacity>
+//         </View>
+//       </Animatable.View>
+//       <StatusBar style="light" />
+//     </View>
+//   );
+// }
 
-export function CriarLista({ fecharModalCriarLista }) {
-    const [novaLista, setNovaLista] = useState('');
-    const [ativoModalListaAdicionarProdutos, setModalListaAdicionarProdutos] = useState(false);
+// const estiloModalEspecifico = StyleSheet.create({});
 
-    const [nomeLista, setNomeLista] = useState('');
-    const [limiteValor, setLimiteValor] = useState('');
+// export default CriarLista;
 
-    const handleAdicionar = () => {
-        // onAdicionarNovaLista(novaLista);
-        setNovaLista('');
-    };
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import * as Animatable from "react-native-animatable";
+import ESTILOS from "../styles/ESTILOS";
+import estiloModal from "../styles/estiloModal";
+import { adicionarListaCompras } from "../hooks/bancoLista";
 
-    const salvarNovaLista = () => {
-        setModalListaAdicionarProdutos(true);
+export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
+  const [nomeLista, setNomeLista] = useState('');
+  const [limiteValor, setLimiteValor] = useState('');
+
+  const salvarNovaLista = async () => {
+    try {
+      // Chamar a função handleAdicionarLista passando os parâmetros necessários
+      await handleAdicionarLista(nomeLista, parseFloat(limiteValor));
+      fecharModalCriarLista(); // Fechar o modal após adicionar a lista
+    } catch (error) {
+      console.error('Erro ao adicionar nova lista de compras: ', error);
     }
-
-    return (
-        <View style={estiloModal.container}>
-
-            <Animatable.View delay={600} animation='fadeOutUp' style={estiloModal.content}>
-
-                <Text>Criar Nova Lista</Text>
-
-                <View style={estiloModal.formInput}>
-                    <Text style={estiloModal.formInputText}>Nome da Lista</Text>
-                    <TextInput
-                        placeholder='Insira o nome da lista...'
-                        placeholderTextColor='gray'
-                        style={estiloModal.input}
-                        value={nomeLista}
-                        onChangeText={setNomeLista}
-                    />
-                </View>
-
-
-                <View style={estiloModal.formInput}>
-                    <Text style={estiloModal.formInputText}>Limite de Custo</Text>
-                    <TextInput
-                        placeholder='Insira o valor limite...'
-                        placeholderTextColor='gray'
-                        style={estiloModal.input}
-                        value={limiteValor}
-                        onChangeText={setLimiteValor}
-                        keyboardType='numeric'
-                    />
-                </View>
-
-                <DropdownMenu />
-
-                <View style={estiloModal.baseBtnsModal}>
-                    <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
-                        <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovaLista}>
-                        <Text style={ESTILOS.txtBranco}>Continuar</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={ativoModalListaAdicionarProdutos}
-                    style={ESTILOS.modal}>
-                    <AddProdutoLista fecharModalListaAdicionarProdutos={() => setModalListaAdicionarProdutos(false)}/>
-                </Modal>
-
-            </Animatable.View>
-
-            <StatusBar style="light" />
+  };
+  
+  return (
+    <View style={estiloModal.container}>
+      <Animatable.View style={estiloModal.content}>
+        <Text>Criar Nova Lista</Text>
+        <View style={estiloModal.formInput}>
+          <Text style={estiloModal.formInputText}>Nome da Lista</Text>
+          <TextInput
+            placeholder="Insira o nome da lista..."
+            placeholderTextColor="gray"
+            style={estiloModal.input}
+            value={nomeLista}
+            onChangeText={setNomeLista}
+          />
         </View>
-    );
+        <View style={estiloModal.formInput}>
+          <Text style={estiloModal.formInputText}>Limite de Custo</Text>
+          <TextInput
+            placeholder="Insira o valor limite..."
+            placeholderTextColor="gray"
+            style={estiloModal.input}
+            value={limiteValor}
+            onChangeText={setLimiteValor}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={estiloModal.baseBtnsModal}>
+          <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
+            <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovaLista}>
+            <Text style={ESTILOS.txtBranco}>Continuar</Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+      <StatusBar style="light" />
+    </View>
+  );
 }
 
-const estiloModalEspecifico = StyleSheet.create({
-});
+const estiloModalEspecifico = StyleSheet.create({});
 
-export default CriarLista
+export default CriarLista;
