@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import estiloModal from '../styles/estiloModal';
 
-export function DropdownMenu() {
+export function DropdownMenuPRODUTO({ onSelect }) {
     const [opcSelecionada, setOpcSelecionada] = useState('');
 
     const handleSelectChange = (itemValue) => {
         setOpcSelecionada(itemValue);
+        onSelect(itemValue); // Chamar a função onSelect passada via props
     };
 
     return (
         <View style={estiloModal.formInput}>
             <View style={estiloModal.formInputText}>
-                <Text>Tipo de compra:</Text>
+                <Text>Tipo de produto:</Text>
             </View>
 
             <Picker
@@ -22,13 +23,15 @@ export function DropdownMenu() {
                 onValueChange={handleSelectChange}
             >
                 <Picker.Item label="Selecione..." value="" />
-                <Picker.Item label="Compra do Mês" value="compra1" />
-                <Picker.Item label="Compra da Semana" value="compra2" />
-                <Picker.Item label="Compra do Dia" value="compra3" />
-                <Picker.Item label="HortiFruti" value="compra4" />
+                <Picker.Item label="Vegetais" value="vegetais" />
+                <Picker.Item label="Carnes" value="carnes" />
+                <Picker.Item label="Padaria" value="padaria" />
+                <Picker.Item label="Frutas" value="frutas" />
+                <Picker.Item label="Limpeza" value="limpeza" />
+                <Picker.Item label="Outros" value="outros" />
             </Picker>
         </View>
     );
 }
 
-export default DropdownMenu;
+export default DropdownMenuPRODUTO;

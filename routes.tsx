@@ -1,11 +1,33 @@
-// 
 import { Home } from './pages/index';
 import { Produtos } from './pages/produtos';
 import { Novidades } from './pages/novidades';
 import { StatusBar } from 'react-native';
-
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
 const Tab = createMaterialTopTabNavigator();
+const Stack = createStackNavigator();
+
+import { Vegetais } from './pages/produtoCategorias/vegetais';
+import { Carnes } from './pages/produtoCategorias/carnes';
+import { Frutas } from './pages/produtoCategorias/frutas';
+import { Padaria } from './pages/produtoCategorias/padaria';
+import { Limpeza } from './pages/produtoCategorias/limpeza';
+import { Outros } from './pages/produtoCategorias/outros';
+
+function ProdutosStackNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen options={{ headerShown: false }} name="Produtos" component={Produtos} />
+      <Stack.Screen name="Vegetais" component={Vegetais} />
+      <Stack.Screen name="Carnes" component={Carnes} />
+      <Stack.Screen name="Frutas" component={Frutas} />
+      <Stack.Screen name="Padaria" component={Padaria} />
+      <Stack.Screen name="Limpeza" component={Limpeza} />
+      <Stack.Screen name="Outros" component={Outros} />
+    </Stack.Navigator>
+  );
+}
 
 export default function Routes() {
     return (
@@ -17,10 +39,8 @@ export default function Routes() {
             }}
         >
             <Tab.Screen name="Início" component={Home} />
-            <Tab.Screen name="produtos" component={Produtos} />
+            <Tab.Screen name="produtos" component={ProdutosStackNavigator} />
             <Tab.Screen name="novidades" component={Novidades} />
         </Tab.Navigator>
-
-        
     );
 }

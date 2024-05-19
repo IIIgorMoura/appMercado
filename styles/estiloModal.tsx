@@ -10,7 +10,7 @@ const estiloModal = StyleSheet.create({
     content: {
         backgroundColor: "#fff",
         width: "90%",
-        height: "95%",
+        height: 600,
         paddingTop: 10,
         paddingBottom: 10,
         justifyContent: 'center',

@@ -57,8 +57,6 @@ export function Home() {
     }
   };
 
-
-
   return (
     <View style={ESTILOS.container}>
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalCriarLista}>
@@ -71,13 +69,13 @@ export function Home() {
         showsVerticalScrollIndicator={false}
         data={listasCompras}
         renderItem={({ item }) => (
-          <View style={ESTILOS.listaItem}>
+          <TouchableOpacity style={ESTILOS.listaItem}>
             <Text>{item.nomeLista}</Text>
-            <Text>{item.limite}</Text>
+            <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
               <Text style={{ color: 'red' }}>Remover</Text>
             </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
       />

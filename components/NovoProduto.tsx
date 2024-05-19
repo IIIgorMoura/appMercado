@@ -1,61 +1,73 @@
-import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, TouchableOpacity, View, Image, Modal } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import * as Animatable from "react-native-animatable";
+import ESTILOS from "../styles/ESTILOS";
+import estiloModal from "../styles/estiloModal";
+import DropdownMenuPRODUTO from "../hooks/dropdownMenuPRODUTO";
+import { adicionarProduto } from "../hooks/bancoProduto";
 
-import { useState } from "react";
-
-import ESTILOS from '../styles/ESTILOS';
-import estiloModal from '../styles/estiloModal';
-
-import { EditarProduto } from './EditarProduto';
+import { useNavigation } from "@react-navigation/native";
 
 export function NovoProduto({ fecharModalNovoProduto }) {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const [ativoModalEditarProduto, setModalEditarProduto] = useState(false);
+  const [nomeProduto, setNomeProduto] = useState('');
+  const [precoProduto, setPrecoProduto] = useState('');
+  const [tipoProduto, setTipoProduto] = useState('');
 
-    const abrirModalEditarProduto = () => {
-        setModalEditarProduto(true);
-    };
+  const salvarNovoProduto = async () => {
+    try {
+      const novoProduto = {
+        nome: nomeProduto,
+        preco: parseFloat(precoProduto),
+        tipo: tipoProduto
+      };
+      await adicionarProduto(novoProduto);
+      fecharModalNovoProduto();
+    } catch (error) {
+      console.error('Erro ao adicionar novo produto: ', error);
+    }
+  };
 
-    const fecharModalEditarProduto = () => {
-        setModalEditarProduto(false);
-    };
-
-    return (
-        <View style={estiloModal.container}>
-
-            <View style={estiloModal.content}>
-
-                <Text>Adicionar Novo Produto</Text>
-
-                <View style={estiloModal.baseBtnsModal}>
-                    <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalNovoProduto}>
-                        <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={estiloModal.btnProximo}>
-                        <Text style={ESTILOS.txtBranco}>Continuar</Text>
-                    </TouchableOpacity>
-                </View>
-
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={ativoModalEditarProduto}
-                    style={ESTILOS.modal}
-                >
-                    <EditarProduto fecharModalEditarProduto={() => setModalEditarProduto(false)} />
-                </Modal>
-
-            </View>
-
-            <StatusBar style="light" />
+  return (
+    <View style={estiloModal.container}>
+      <Animatable.View style={estiloModal.content}>
+        <Text>Criar Novo Produto</Text>
+        <View style={estiloModal.formInput}>
+          <Text style={estiloModal.formInputText}>Nome do Produto</Text>
+          <TextInput
+            placeholder="Insira o nome do produto..."
+            placeholderTextColor="gray"
+            style={estiloModal.input}
+            value={nomeProduto}
+            onChangeText={setNomeProduto}
+          />
         </View>
-    );
+        <View style={estiloModal.formInput}>
+          <Text style={estiloModal.formInputText}>Preço do Produto</Text>
+          <TextInput
+            placeholder="Insira o preço do produto..."
+            placeholderTextColor="gray"
+            style={estiloModal.input}
+            value={precoProduto}
+            onChangeText={setPrecoProduto}
+            keyboardType="numeric"
+          />
+        </View>
+
+        <DropdownMenuPRODUTO onSelect={setTipoProduto} />
+
+        <View style={estiloModal.baseBtnsModal}>
+          <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalNovoProduto}>
+            <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovoProduto}>
+            <Text style={ESTILOS.txtBranco}>Salvar</Text>
+          </TouchableOpacity>
+        </View>
+      </Animatable.View>
+      <StatusBar style="light" />
+    </View>
+  );
 }
-
-const estiloModalEspecifico = StyleSheet.create({
-
-});
-
-export default NovoProduto

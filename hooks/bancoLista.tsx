@@ -30,7 +30,7 @@
 //         nomeProduto TEXT NOT NULL,
 //         quantidade INTEGER,
 //         FOREIGN KEY (lista_compras_id) REFERENCES lista_compras(id)
-//       );`,
+//       );`
 //       [],
 //       () => { console.log('Tabela produtos criada com sucesso'); },
 //       error => { console.error('Erro ao criar tabela produtos: ', error); }
@@ -69,6 +69,8 @@
 //   });
 // };
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const produtosPadrao = 'a';
 
 // Função para criar uma nova lista de compras
 export const adicionarListaCompras = async (nomeLista, limite) => {

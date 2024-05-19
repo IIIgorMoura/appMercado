@@ -77,12 +77,19 @@ import * as Animatable from "react-native-animatable";
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
 import { adicionarListaCompras } from "../hooks/bancoLista";
+import DropdownMenuLISTA from "../hooks/dropdownMenuLISTA";
 
 export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
   const [nomeLista, setNomeLista] = useState('');
   const [limiteValor, setLimiteValor] = useState('');
 
   const salvarNovaLista = async () => {
+    // Verificar se os campos estão preenchidos antes de salvar a lista
+    if (!nomeLista || !limiteValor) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
     try {
       // Chamar a função handleAdicionarLista passando os parâmetros necessários
       await handleAdicionarLista(nomeLista, parseFloat(limiteValor));
@@ -117,6 +124,7 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
             keyboardType="numeric"
           />
         </View>
+
         <View style={estiloModal.baseBtnsModal}>
           <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
