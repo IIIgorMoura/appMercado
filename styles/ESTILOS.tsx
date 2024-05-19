@@ -54,7 +54,7 @@ const ESTILOS = StyleSheet.create({
     paddingBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 15,
+    borderRadius: 25,
   },
   listaElementos: {
     marginVertical: 10,
@@ -63,12 +63,23 @@ const ESTILOS = StyleSheet.create({
   listaItem: {
     width: '100%',
     height: 125,
-    borderWidth: 1,
+    backgroundColor: '#fff',
     borderRadius: 25,
-    borderBottomColor: 'gray',
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginVertical: 10,
+  },
+  categoriaProdutos: {
+    width: '100%',
+    height: 300,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    padding: 20,
+    borderRadius: 25,
+  },
+  imgProdutos: {
+    width: '100%',
+    height: '85%',
   },
 });
 

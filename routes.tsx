@@ -16,7 +16,7 @@ export default function Routes() {
                 tabBarStyle: { backgroundColor: '#6622F6', paddingTop: StatusBar.currentHeight },
             }}
         >
-            <Tab.Screen name="index" component={Home} />
+            <Tab.Screen name="Início" component={Home} />
             <Tab.Screen name="produtos" component={Produtos} />
             <Tab.Screen name="novidades" component={Novidades} />
         </Tab.Navigator>

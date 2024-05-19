@@ -33,9 +33,10 @@ export function Home() {
     }
   };
 
+  // Recarregar lista compras
   useEffect(() => {
     carregarListasCompras();
-  }, []); // Executar apenas uma vez ao carregar a tela
+  }, []);
 
   const abrirModalCriarLista = () => {
     setModalCriarLista(true);
@@ -65,7 +66,9 @@ export function Home() {
         <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20}></Ionicons>
       </TouchableOpacity>
 
-      <FlatList style={ESTILOS.listaElementos}
+      <FlatList 
+        style={ESTILOS.listaElementos}
+        showsVerticalScrollIndicator={false}
         data={listasCompras}
         renderItem={({ item }) => (
           <View style={ESTILOS.listaItem}>
