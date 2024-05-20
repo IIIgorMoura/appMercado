@@ -70,6 +70,7 @@
 
 // export default CriarLista;
 
+
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, TextInput, Modal } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -77,9 +78,11 @@ import * as Animatable from "react-native-animatable";
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
 import DropdownMenuLISTA from "../hooks/dropdownMenuLISTA";
-import {AddProdutoLista} from "./AddProdutoLista";
+import { AddProdutoLista } from "./AddProdutoLista";
+import { useNavigation } from "@react-navigation/native";
 
-export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
+export function CriarLista({ fecharModalCriarLista, handleAdicionarLista, navegarParaListaCompras }) {
+  const navigation = useNavigation();
   const [nomeLista, setNomeLista] = useState('');
   const [limiteValor, setLimiteValor] = useState('');
   const [tipoCompra, setTipoCompra] = useState('');
@@ -95,9 +98,17 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
     try {
       const id = await handleAdicionarLista(nomeLista, parseFloat(limiteValor), tipoCompra);
       setListaId(id);
-      setModalAddProduto(true);
+      return id;
     } catch (error) {
       console.error('Erro ao adicionar nova lista de compras: ', error);
+    }
+  };
+
+  const continuar = async () => {
+    const id = await salvarNovaLista();
+    if (id) {
+      fecharModalCriarLista();
+      navegarParaListaCompras(id);
     }
   };
 
@@ -133,7 +144,7 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
           <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={estiloModal.btnProximo} onPress={salvarNovaLista}>
+          <TouchableOpacity style={estiloModal.btnProximo} onPress={continuar}>
             <Text style={ESTILOS.txtBranco}>Continuar</Text>
           </TouchableOpacity>
         </View>

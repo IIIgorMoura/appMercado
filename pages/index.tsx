@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, FlatList } from 'react-native';
 import { useState, useEffect } from "react";
 import { CriarLista } from '../components/CriarLista';
-import { AddProdutoLista } from '../components/AddProdutoLista';
 import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../styles/ESTILOS';
 import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
@@ -51,8 +50,9 @@ export function Home() {
 
   const handleAdicionarLista = async (nomeLista, limite, tipoCompra) => {
     try {
-      await adicionarListaCompras(nomeLista, limite, tipoCompra);
+      const id = await adicionarListaCompras(nomeLista, limite, tipoCompra);
       carregarListasCompras();
+      return id;
     } catch (error) {
       console.error('Erro ao adicionar nova lista de compras: ', error);
     }
@@ -88,17 +88,8 @@ export function Home() {
         visible={ativoModalCriarLista}
         style={ESTILOS.modal}
       >
-        <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} />
+        <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} navegarParaListaCompras={navegarParaListaCompras}/>
       </Modal>
-
-      {/* <Modal
-        animationType="fade"
-        transparent={true}
-        style={ESTILOS.modal}
-        visible={modalAddProduto}
-      >
-        <AddProdutoLista fecharModalAddProduto={() => setModalAddProduto(false)} />
-      </Modal> */}
 
       <StatusBar style="light" />
     </View>

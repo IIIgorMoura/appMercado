@@ -5,13 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../styles/ESTILOS';
 import { AddProdutoLista } from '../components/AddProdutoLista';
-import { obterListaPorId, obterProdutosPorListaId } from '../hooks/bancoLista';
+import { obterListaPorId } from '../hooks/bancoLista';
 
 interface RouteParams {
     listaId?: number;
 }
 
-export function ListaCompras({ navigation }) {
+export function ListaCompras({}) {
     const route = useRoute();
     const { listaId } = route.params as RouteParams;
 
@@ -20,21 +20,28 @@ export function ListaCompras({ navigation }) {
     const [modalAddProdutoVisible, setModalAddProdutoVisible] = useState(false);
 
     useEffect(() => {
-        if (listaId) {
-            const carregarDados = async () => {
-                try {
-                    const lista = await obterListaPorId(listaId);
-                    setLista(lista);
-                    const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
-                    setProdutos(produtos ? JSON.parse(produtos) : []);
-                } catch (error) {
-                    console.error('Erro ao carregar os dados: ', error);
-                }
-            };
+        const carregarDados = async () => {
+            try {
+                const lista = await obterListaPorId(listaId);
+                setLista(lista);
+                const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
+                setProdutos(produtos ? JSON.parse(produtos) : []);
+            } catch (error) {
+                console.error('Erro ao carregar os dados: ', error);
+            }
+        };
 
-            carregarDados();
-        }
+        carregarDados();
     }, [listaId]);
+
+    const atualizarListaProdutos = async () => {
+        try {
+            const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
+            setProdutos(produtosAtualizados ? JSON.parse(produtosAtualizados) : []);
+        } catch (error) {
+            console.error('Erro ao atualizar lista de produtos: ', error);
+        }
+    };
 
     const abrirModalAddProduto = () => {
         setModalAddProdutoVisible(true);
@@ -42,6 +49,7 @@ export function ListaCompras({ navigation }) {
 
     const fecharModalAddProduto = () => {
         setModalAddProdutoVisible(false);
+        atualizarListaProdutos(); // Atualiza a lista de produtos ao fechar o modal
     };
 
     if (!listaId) {
