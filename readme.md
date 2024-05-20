@@ -1,20 +1,12 @@
-O QUE RESOLVER ESTILO
+O QUE RESOLVER
 
-font regular e bold
-
-MODAL
-	Modal titulos
-	titulos input
-
-Produtos
-	categoria produtos titulo (alinhamento vertical)
-
-// Estilização das páginas PRODUTOCATEGORIAS
-	nas flatlists, corrigir a identação / estilização, se baseando na config de estilo da flatlist da página inicial
-
----- Necessidades Back-End ----
-Adicionar página AddProdutos À lista;
-criação de pagina da lista especifica
+---- Estilos do aplicativo ----
+	fontes, tamanho e densidade de fontes, tamanhos, modals, icones, lista de  produtos da categoria, lista de produtos da lista, etc;
 
 ---- Avanço em UX ----
-Adicionar modal de confirmação antes de deletar lista de compras ou produto
+Dev produtos das categorias base, vindo de inicio;
+Adicionar modal de confirmação antes de deletar lista de compras ou produto;
+Adicionar opção de editar listas e produtos;
+
+---- Corrigir lógica modals AddProduto ----
+Ao adicionar produto da categoria à lista, direcionar para o modal de Categorias de Lista, ao invés de fechar ambos modals;
