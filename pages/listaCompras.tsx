@@ -90,7 +90,7 @@ export function ListaCompras({ navigation }) {
                 visible={modalAddProdutoVisible}
                 onRequestClose={fecharModalAddProduto}
             >
-                <AddProdutoLista fecharModalAddProduto={fecharModalAddProduto} listaId={listaId} setProdutos={setProdutos}/>
+                <AddProdutoLista fecharModalAddProduto={fecharModalAddProduto} listaId={listaId} />
             </Modal>
         </View>
     );

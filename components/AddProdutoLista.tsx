@@ -7,7 +7,8 @@ import { AddCarnes } from "./modalsProdutoCategoria/addCarnes";
 // import {AddLimpeza} from "./modalsProdutoCategoria/addLimpeza";
 // import {AddVegetais} from "./modalsProdutoCategoria/addVegetais";
 
-export function AddProdutoLista({ fecharModalAddProduto, listaId, setProdutos }) {
+export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
+  const [produtos, setProdutos] = useState([]);
   const [modalCategoria, setModalCategoria] = useState(null);
 
   const abrirModalCategoria = (categoria) => {
@@ -40,7 +41,7 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, setProdutos })
   const renderModalCategoria = () => {
     switch (modalCategoria) {
       case 'Carnes':
-        return <AddCarnes fecharModal={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddCarnes fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
       // case 'Limpeza':
       //   return <AddLimpeza fecharModal={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
       // case 'Vegetais':
@@ -54,7 +55,7 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, setProdutos })
   return (
     <View style={styles.container}>
       <View style={[estiloModal.content, { alignItems: 'center' }]}>
-        <Text>Adicionar Produtos à Lista</Text>
+        <Text>Selecione a Categoria do Produto</Text>
         <ScrollView
           style={ESTILOS.listaElementos}
           showsVerticalScrollIndicator={false}>

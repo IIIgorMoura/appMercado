@@ -5,7 +5,6 @@ import ESTILOS from '../../styles/ESTILOS';
 
 export function Carnes() {
   const [produtos, setProdutos] = useState([]);
-
   useEffect(() => {
     const carregarProdutos = async () => {
       try {

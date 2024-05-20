@@ -4,7 +4,7 @@ import { obterProdutos } from '../../hooks/bancoProduto';
 import ESTILOS from '../../styles/ESTILOS';
 import estiloModal from '../../styles/estiloModal';
 
-export function AddCarnes({ fecharModal, salvarProdutos }) {
+export function AddCarnes({ fecharModalCategoria, salvarProdutos }) {
   const [produtos, setProdutos] = useState([]);
   const [quantidades, setQuantidades] = useState({});
 
@@ -60,7 +60,7 @@ export function AddCarnes({ fecharModal, salvarProdutos }) {
   );
 
   const cancelar = () => {
-    fecharModal();
+    fecharModalCategoria();
   };
 
   const concluir = () => {
@@ -69,7 +69,7 @@ export function AddCarnes({ fecharModal, salvarProdutos }) {
       quantidade: quantidades[produto.id]
     })).filter(produto => produto.quantidade > 0);
     salvarProdutos(produtosSelecionados);
-    fecharModal();
+    fecharModalCategoria();
   };
 
   return (
@@ -87,7 +87,7 @@ export function AddCarnes({ fecharModal, salvarProdutos }) {
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={estiloModal.btnProximo} onPress={concluir}>
-            <Text style={ESTILOS.txtBranco}>Concluir</Text>
+            <Text style={ESTILOS.txtBranco}>Adicionar</Text>
           </TouchableOpacity>
         </View>
       </View>
