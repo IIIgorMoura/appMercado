@@ -69,7 +69,7 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={estiloModal.container}>
       <View style={[estiloModal.content, { alignItems: 'center' }]}>
         <Text>Selecione a Categoria do Produto</Text>
         <ScrollView

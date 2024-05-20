@@ -82,6 +82,8 @@ export function Home() {
         keyExtractor={(item) => item.id.toString()}
       />
 
+
+
       <Modal
         animationType="fade"
         transparent={true}
