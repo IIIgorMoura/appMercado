@@ -76,29 +76,31 @@ import { StatusBar } from "expo-status-bar";
 import * as Animatable from "react-native-animatable";
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
-import { adicionarListaCompras } from "../hooks/bancoLista";
 import DropdownMenuLISTA from "../hooks/dropdownMenuLISTA";
+import {AddProdutoLista} from "./AddProdutoLista";
 
 export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
   const [nomeLista, setNomeLista] = useState('');
   const [limiteValor, setLimiteValor] = useState('');
+  const [tipoCompra, setTipoCompra] = useState('');
+  const [modalAddProduto, setModalAddProduto] = useState(false);
+  const [listaId, setListaId] = useState(null);
 
   const salvarNovaLista = async () => {
-    // Verificar se os campos estão preenchidos antes de salvar a lista
-    if (!nomeLista || !limiteValor) {
+    if (!nomeLista || !limiteValor || !tipoCompra) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
 
     try {
-      // Chamar a função handleAdicionarLista passando os parâmetros necessários
-      await handleAdicionarLista(nomeLista, parseFloat(limiteValor));
-      fecharModalCriarLista(); // Fechar o modal após adicionar a lista
+      const id = await handleAdicionarLista(nomeLista, parseFloat(limiteValor), tipoCompra);
+      setListaId(id);
+      setModalAddProduto(true);
     } catch (error) {
       console.error('Erro ao adicionar nova lista de compras: ', error);
     }
   };
-  
+
   return (
     <View style={estiloModal.container}>
       <Animatable.View style={estiloModal.content}>
@@ -125,6 +127,8 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
           />
         </View>
 
+        <DropdownMenuLISTA onSelect={setTipoCompra} />
+
         <View style={estiloModal.baseBtnsModal}>
           <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
@@ -135,6 +139,14 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista }) {
         </View>
       </Animatable.View>
       <StatusBar style="light" />
+      <Modal
+        animationType="fade"
+        transparent={true}
+        style={ESTILOS.modal}
+        visible={modalAddProduto}
+      >
+        <AddProdutoLista fecharModalAddProduto={() => setModalAddProduto(false)} listaId={listaId} />
+      </Modal>
     </View>
   );
 }

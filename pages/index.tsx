@@ -3,17 +3,21 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, FlatList } from 'react-native';
 import { useState, useEffect } from "react";
 import { CriarLista } from '../components/CriarLista';
+import { AddProdutoLista } from '../components/AddProdutoLista';
 import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../styles/ESTILOS';
-import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista'; // Importar função para obter e adicionar listas de compras
+import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Home() {
   const navigation = useNavigation();
+  const navegarParaListaCompras = (id: number) => {
+    navigation.navigate('ListaCompras', { listaId: id });
+  };
+
   const [ativoModalCriarLista, setModalCriarLista] = useState(false);
   const [listasCompras, setListasCompras] = useState([]);
 
-  // Função para carregar as listas de compras ao carregar a tela e sempre que houver uma alteração
   const carregarListasCompras = async () => {
     try {
       const listas = await obterListasCompras();
@@ -33,7 +37,6 @@ export function Home() {
     }
   };
 
-  // Recarregar lista compras
   useEffect(() => {
     carregarListasCompras();
   }, []);
@@ -46,12 +49,10 @@ export function Home() {
     setModalCriarLista(false);
   };
 
-  // Função para lidar com a adição de uma nova lista de compras
-  const handleAdicionarLista = async (nomeLista, limite) => {
+  const handleAdicionarLista = async (nomeLista, limite, tipoCompra) => {
     try {
-      await adicionarListaCompras(nomeLista, limite);
-      carregarListasCompras(); // Após adicionar, carregar novamente as listas de compras
-      fecharModalCriarLista();
+      await adicionarListaCompras(nomeLista, limite, tipoCompra);
+      carregarListasCompras();
     } catch (error) {
       console.error('Erro ao adicionar nova lista de compras: ', error);
     }
@@ -69,9 +70,10 @@ export function Home() {
         showsVerticalScrollIndicator={false}
         data={listasCompras}
         renderItem={({ item }) => (
-          <TouchableOpacity style={ESTILOS.listaItem}>
+          <TouchableOpacity style={ESTILOS.listaItem} onPress={() => navegarParaListaCompras(item.id)}>
             <Text>{item.nomeLista}</Text>
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
+            <Text>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
               <Text style={{ color: 'red' }}>Remover</Text>
             </TouchableOpacity>
@@ -86,9 +88,17 @@ export function Home() {
         visible={ativoModalCriarLista}
         style={ESTILOS.modal}
       >
-        {/* Passando handleAdicionarLista como prop para CriarLista */}
         <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} />
       </Modal>
+
+      {/* <Modal
+        animationType="fade"
+        transparent={true}
+        style={ESTILOS.modal}
+        visible={modalAddProduto}
+      >
+        <AddProdutoLista fecharModalAddProduto={() => setModalAddProduto(false)} />
+      </Modal> */}
 
       <StatusBar style="light" />
     </View>
@@ -103,3 +113,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Home;

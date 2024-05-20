@@ -39,8 +39,7 @@ const ESTILOS = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 5,
-    marginBottom: 5,
+    marginVertical: 10,
     flexDirection: 'row',
   },
   btnDestaqueIcon: {

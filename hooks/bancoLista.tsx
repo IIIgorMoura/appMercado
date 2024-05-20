@@ -70,10 +70,29 @@
 // };
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const produtosPadrao = 'a';
+export const obterListaPorId = async (id) => {
+  try {
+    const listasCompras = await AsyncStorage.getItem('listasCompras');
+    const listas = listasCompras ? JSON.parse(listasCompras) : [];
+    return listas.find(lista => lista.id === id);
+  } catch (error) {
+    console.error('Erro ao obter a lista de compras: ', error);
+    throw error;
+  }
+};
+
+export const obterProdutosPorListaId = async (listaId) => {
+  try {
+    const listaProdutos = await AsyncStorage.getItem(`lista_${listaId}`);
+    return listaProdutos ? JSON.parse(listaProdutos) : [];
+  } catch (error) {
+    console.error('Erro ao obter os produtos da lista: ', error);
+    throw error;
+  }
+};
 
 // Função para criar uma nova lista de compras
-export const adicionarListaCompras = async (nomeLista, limite) => {
+export const adicionarListaCompras = async (nomeLista, limite, tipoCompra) => {
   try {
     // Obter listas de compras existentes do AsyncStorage
     const listasCompras = await AsyncStorage.getItem('listasCompras');
@@ -83,7 +102,7 @@ export const adicionarListaCompras = async (nomeLista, limite) => {
     }
 
     // Adicionar a nova lista de compras à lista existente
-    const novaLista = { id: Date.now(), nomeLista, limite };
+    const novaLista = { id: Date.now(), nomeLista, limite, tipoCompra };
     listas.push(novaLista);
 
     // Salvar a lista de compras atualizada no AsyncStorage

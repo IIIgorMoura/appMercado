@@ -3,11 +3,12 @@ import { View, Text } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import estiloModal from '../styles/estiloModal';
 
-export function DropdownMenuLISTA() {
+export function DropdownMenuLISTA({ onSelect }) {
     const [opcSelecionada, setOpcSelecionada] = useState('');
 
     const handleSelectChange = (itemValue) => {
         setOpcSelecionada(itemValue);
+        onSelect(itemValue);
     };
 
     return (
@@ -22,10 +23,10 @@ export function DropdownMenuLISTA() {
                 onValueChange={handleSelectChange}
             >
                 <Picker.Item label="Selecione..." value="" />
-                <Picker.Item label="Compra do Mês" value="compra1" />
-                <Picker.Item label="Compra da Semana" value="compra2" />
-                <Picker.Item label="Compra do Dia" value="compra3" />
-                <Picker.Item label="HortiFruti" value="compra4" />
+                <Picker.Item label="Compra do Mês" value="Compra do Mês" />
+                <Picker.Item label="Compra da Semana" value="Compra da Semana" />
+                <Picker.Item label="Compra do Dia" value="Compra do Dia" />
+                <Picker.Item label="HortiFruti" value="HortiFruti" />
             </Picker>
         </View>
     );
