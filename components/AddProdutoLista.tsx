@@ -3,9 +3,14 @@ import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Image, Modal } fr
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
+
+import { AddVegetais } from "./modalsProdutoCategoria/addVegetais";
 import { AddCarnes } from "./modalsProdutoCategoria/addCarnes";
-// import {AddLimpeza} from "./modalsProdutoCategoria/addLimpeza";
-// import {AddVegetais} from "./modalsProdutoCategoria/addVegetais";
+import { AddPadaria } from "./modalsProdutoCategoria/addPadaria";
+import { AddFrutas } from "./modalsProdutoCategoria/addFrutas";
+import { AddLimpeza } from "./modalsProdutoCategoria/addLimpeza";
+import { AddOutros } from "./modalsProdutoCategoria/addOutros"
+
 
 export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
   const [produtos, setProdutos] = useState([]);
@@ -26,11 +31,11 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
       const listaProdutos = produtosExistentes ? JSON.parse(produtosExistentes) : [];
       const novaListaProdutos = [...listaProdutos, ...produtosSelecionados];
       await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(novaListaProdutos));
-  
+
       // Recarregar lista de produtos após adição
       const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
       setProdutos(produtosAtualizados ? JSON.parse(produtosAtualizados) : []);
-  
+
       // Fechar modal após salvar produtos
       fecharModalAddProduto();
     } catch (error) {
@@ -40,13 +45,24 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
 
   const renderModalCategoria = () => {
     switch (modalCategoria) {
+      case 'Vegetais':
+        return <AddVegetais fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+
       case 'Carnes':
         return <AddCarnes fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
-      // case 'Limpeza':
-      //   return <AddLimpeza fecharModal={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
-      // case 'Vegetais':
-      //   return <AddVegetais fecharModal={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
-      // Adicione casos para outras categorias aqui
+
+      case 'Padaria':
+        return <AddPadaria fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+
+      case 'Frutas':
+        return <AddFrutas fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+
+      case 'Limpeza':
+        return <AddLimpeza fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+
+      case 'Outros':
+        return <AddOutros fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+
       default:
         return null;
     }
@@ -69,9 +85,24 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
             <Text style={styles.txtCategoriaProdutos}>Carnes</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.categoriaProdutos} onPress={() => abrirModalCategoria('Padaria')}>
+            <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosPadaria.png')}></Image>
+            <Text style={styles.txtCategoriaProdutos}>Padaria</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.categoriaProdutos} onPress={() => abrirModalCategoria('Frutas')}>
+            <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosFrutas.png')}></Image>
+            <Text style={styles.txtCategoriaProdutos}>Frutas</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity style={styles.categoriaProdutos} onPress={() => abrirModalCategoria('Limpeza')}>
             <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosLimpeza.png')}></Image>
             <Text style={styles.txtCategoriaProdutos}>Limpeza</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.categoriaProdutos} onPress={() => abrirModalCategoria('Outros')}>
+            <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosOutros.png')}></Image>
+            <Text style={styles.txtCategoriaProdutos}>Outros</Text>
           </TouchableOpacity>
 
         </ScrollView>
