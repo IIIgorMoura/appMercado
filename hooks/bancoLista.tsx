@@ -69,6 +69,25 @@
 //   });
 // };
 import AsyncStorage from '@react-native-async-storage/async-storage';
+export const adicionarProdutosNaLista = async (listaId, produtos) => {
+  try {
+    await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtos));
+  } catch (error) {
+    console.error('Erro ao adicionar produtos à lista de compras: ', error);
+    throw error;
+  }
+};
+
+// Função para obter todos os produtos de uma lista de compras específica
+export const obterProdutosPorListaId = async (listaId) => {
+  try {
+    const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
+    return produtos ? JSON.parse(produtos) : [];
+  } catch (error) {
+    console.error('Erro ao obter os produtos da lista de compras: ', error);
+    throw error;
+  }
+};
 
 export const obterListaPorId = async (id) => {
   try {
@@ -77,16 +96,6 @@ export const obterListaPorId = async (id) => {
     return listas.find(lista => lista.id === id);
   } catch (error) {
     console.error('Erro ao obter a lista de compras: ', error);
-    throw error;
-  }
-};
-
-export const obterProdutosPorListaId = async (listaId) => {
-  try {
-    const listaProdutos = await AsyncStorage.getItem(`lista_${listaId}`);
-    return listaProdutos ? JSON.parse(listaProdutos) : [];
-  } catch (error) {
-    console.error('Erro ao obter os produtos da lista: ', error);
     throw error;
   }
 };
@@ -107,7 +116,7 @@ export const adicionarListaCompras = async (nomeLista, limite, tipoCompra) => {
 
     // Salvar a lista de compras atualizada no AsyncStorage
     await AsyncStorage.setItem('listasCompras', JSON.stringify(listas));
-    
+
     return novaLista.id;
   } catch (error) {
     console.error('Erro ao adicionar a lista de compras: ', error);
