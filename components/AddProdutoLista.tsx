@@ -7,7 +7,7 @@ import { AddCarnes } from "./modalsProdutoCategoria/addCarnes";
 // import {AddLimpeza} from "./modalsProdutoCategoria/addLimpeza";
 // import {AddVegetais} from "./modalsProdutoCategoria/addVegetais";
 
-export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
+export function AddProdutoLista({ fecharModalAddProduto, listaId, setProdutos }) {
   const [modalCategoria, setModalCategoria] = useState(null);
 
   const abrirModalCategoria = (categoria) => {
@@ -20,10 +20,17 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
 
   const salvarProdutosNaLista = async (produtosSelecionados) => {
     try {
+      // Salvar produtos na AsyncStorage
       const produtosExistentes = await AsyncStorage.getItem(`lista_${listaId}`);
       const listaProdutos = produtosExistentes ? JSON.parse(produtosExistentes) : [];
       const novaListaProdutos = [...listaProdutos, ...produtosSelecionados];
       await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(novaListaProdutos));
+  
+      // Recarregar lista de produtos após adição
+      const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
+      setProdutos(produtosAtualizados ? JSON.parse(produtosAtualizados) : []);
+  
+      // Fechar modal após salvar produtos
       fecharModalAddProduto();
     } catch (error) {
       console.error('Erro ao salvar produtos na lista: ', error);

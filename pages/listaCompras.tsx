@@ -65,7 +65,6 @@ export function ListaCompras({ navigation }) {
             <View>
                 <Text style={styles.title}>{lista.nomeLista}</Text>
                 <Text style={styles.subtitle}>Limite de Custo: R${lista.limite.toFixed(2)}</Text>
-                <Text style={styles.subtitle}>Tipo de Compra: {lista.tipoCompra}</Text>
             </View>
 
             <FlatList
@@ -91,7 +90,7 @@ export function ListaCompras({ navigation }) {
                 visible={modalAddProdutoVisible}
                 onRequestClose={fecharModalAddProduto}
             >
-                <AddProdutoLista fecharModalAddProduto={fecharModalAddProduto} listaId={listaId} />
+                <AddProdutoLista fecharModalAddProduto={fecharModalAddProduto} listaId={listaId} setProdutos={setProdutos}/>
             </Modal>
         </View>
     );
