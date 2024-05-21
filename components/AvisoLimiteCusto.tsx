@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
 
-export function AvisoLimiteCusto({ visible, onContinue, onStop }) {
+export function AvisoLimiteCusto({ modalAvisoVisivel, aoContinuar, aoParar }) {
     return (
         <Modal
             animationType="fade"
             transparent={true}
-            visible={visible}
-            onRequestClose={onStop}
+            visible={modalAvisoVisivel}
+            onRequestClose={aoParar}
         >
             <View style={estiloModal.container}>
                 <View style={estiloModal.contentReduzido}>
@@ -18,13 +18,13 @@ export function AvisoLimiteCusto({ visible, onContinue, onStop }) {
                     <View style={estiloModal.baseBtnsModalReduzido}>
                         <TouchableOpacity
                             style={estiloModal.btnVoltar}
-                            onPress={onContinue}
+                            onPress={aoContinuar}
                         >
                             <Text style={ESTILOS.txtRoxo}>Continuar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={estiloModal.btnProximo}
-                            onPress={onStop}
+                            onPress={aoParar}
                         >
                             <Text style={ESTILOS.txtBranco}>Parar</Text>
                         </TouchableOpacity>

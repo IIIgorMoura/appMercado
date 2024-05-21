@@ -13,7 +13,7 @@ import { AddOutros } from "./modalsProdutoCategoria/addOutros";
 
 import { AvisoLimiteCusto } from "./AvisoLimiteCusto";
 
-export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalPreco, setModalLimiteAlcancadoVisivel }) {
+export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalPreco, modalLimiteAlcancadoVisivel, setModalLimiteAlcancadoVisivel }) {
   const [produtos, setProdutos] = useState([]);
   const [modalCategoria, setModalCategoria] = useState(null);
 
@@ -149,7 +149,6 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalP
 
 
       <AvisoLimiteCusto
-        modalAvisoVisivel={setModalLimiteAlcancadoVisivel}
         aoContinuar={() => {
           setModalLimiteAlcancadoVisivel(false); // Aqui fechamos o modal
         }}

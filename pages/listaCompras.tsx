@@ -12,7 +12,7 @@ interface RouteParams {
     listaId?: number;
 }
 
-export function ListaCompras({}) {
+export function ListaCompras({ }) {
     const route = useRoute();
     const { listaId } = route.params as RouteParams;
 
@@ -20,7 +20,7 @@ export function ListaCompras({}) {
     const [produtos, setProdutos] = useState([]);
     const [modalAddProdutoVisible, setModalAddProdutoVisible] = useState(false);
     const [totalPreco, setTotalPreco] = useState(0);
-    const [modalLimiteAlcancadoVisible, setModalLimiteAlcancadoVisible] = useState(false);
+    const [modalLimiteAlcancadoVisivel, setModalLimiteAlcancadoVisivel] = useState(false);
 
     useEffect(() => {
         const carregarDados = async () => {
@@ -64,17 +64,17 @@ export function ListaCompras({}) {
         setTotalPreco(total);
 
         if (total >= limite) {
-            setModalLimiteAlcancadoVisible(true);
+            setModalLimiteAlcancadoVisivel(true);
         }
     };
 
     const continuarAdicionandoProdutos = () => {
-        setModalLimiteAlcancadoVisible(false);
+        setModalLimiteAlcancadoVisivel(false);
         abrirModalAddProduto();
     };
 
     const pararAdicaoProdutos = () => {
-        setModalLimiteAlcancadoVisible(false);
+        setModalLimiteAlcancadoVisivel(false);
         setModalAddProdutoVisible(false);
     };
 
@@ -127,10 +127,11 @@ export function ListaCompras({}) {
                                 <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
                                 <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                                 <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
+                                <TouchableOpacity onPress={() => removerProduto(item.id)}>
+                                    <Ionicons name="trash-bin-outline" size={24} color="red" />
+                                </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => removerProduto(item.id)}>
-                                <Ionicons name="trash-bin-outline" size={24} color="red" />
-                            </TouchableOpacity>
+
                         </View>
                     );
                 }}
@@ -147,19 +148,19 @@ export function ListaCompras({}) {
                 visible={modalAddProdutoVisible}
                 onRequestClose={fecharModalAddProduto}
             >
-                <AddProdutoLista 
-                    fecharModalAddProduto={fecharModalAddProduto} 
+                <AddProdutoLista
+                    fecharModalAddProduto={fecharModalAddProduto}
                     listaId={listaId}
                     limite={lista.limite}
                     totalPreco={totalPreco}
-                    setModalLimiteAlcancadoVisible={setModalLimiteAlcancadoVisible}
+                    setModalLimiteAlcancadoVisivel={setModalLimiteAlcancadoVisivel}
                 />
             </Modal>
 
             <AvisoLimiteCusto
-                visible={modalLimiteAlcancadoVisible}
-                onContinue={continuarAdicionandoProdutos}
-                onStop={pararAdicaoProdutos}
+                modalAvisoVisivel={modalLimiteAlcancadoVisivel}
+                aoContinuar={continuarAdicionandoProdutos}
+                aoParar={pararAdicaoProdutos}
             />
         </View>
     );
