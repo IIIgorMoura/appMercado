@@ -90,7 +90,7 @@ export function Home() {
         visible={ativoModalCriarLista}
         style={ESTILOS.modal}
       >
-        <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} navegarParaListaCompras={navegarParaListaCompras}/>
+        <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} navegarParaListaCompras={navegarParaListaCompras} />
       </Modal>
 
       <StatusBar style="light" />

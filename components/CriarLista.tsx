@@ -150,14 +150,6 @@ export function CriarLista({ fecharModalCriarLista, handleAdicionarLista, navega
         </View>
       </Animatable.View>
       <StatusBar style="light" />
-      <Modal
-        animationType="fade"
-        transparent={true}
-        style={ESTILOS.modal}
-        visible={modalAddProduto}
-      >
-        <AddProdutoLista fecharModalAddProduto={() => setModalAddProduto(false)} listaId={listaId} />
-      </Modal>
     </View>
   );
 }

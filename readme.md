@@ -9,10 +9,8 @@ Adicionar modal de confirmação antes de deletar lista de compras ou produto;
 Adicionar opção de editar listas e produtos;
 
 ---- Corrigir lógica modals AddProduto ----
-Ao adicionar produto da categoria à lista, direcionar para o modal de Categorias de Lista, ao invés de fechar ambos modals;
-Adicionar preço unitário e preço total à cada produto, multiplicando QNT * Preço unidade;
-	Somar os preços total de cada produto e então multiplicar todos;
-	Comparar o Preço total produtos com limite de custo
-		se Preco total < Limite = return;
-		se Preco total >= limite = alertar perguntando se deseja ignorar limite de custo
-			se sim, txt do Preco Total fica vermelho
+Ao atingir o limite de custo, dentro do modal AddProdutoCategoria, surgir o modal AvisoLimiteCusto
+	Se user decidir parar, fecha ambos modais, se user decidir continuar fecha somente o modal AvisoLimiteCusto
+	De qlqr jeito se passar do limite o txt Limite Custo fica vermelho
+
+Add btn para remover um item da lista de compras

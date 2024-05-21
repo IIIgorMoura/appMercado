@@ -11,6 +11,8 @@ import { AddFrutas } from "./modalsProdutoCategoria/addFrutas";
 import { AddLimpeza } from "./modalsProdutoCategoria/addLimpeza";
 import { AddOutros } from "./modalsProdutoCategoria/addOutros";
 
+import { AvisoLimiteCusto } from "./AvisoLimiteCusto";
+
 export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
   const [produtos, setProdutos] = useState([]);
   const [modalCategoria, setModalCategoria] = useState(null);
@@ -126,6 +128,13 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
           {renderModalCategoria()}
         </View>
       </Modal>
+
+
+      {/* <AvisoLimiteCusto
+        visible={modalLimiteAlcancadoVisible}
+        onContinue={continuarAdicionandoProdutos}
+        onStop={pararAdicaoProdutos}
+      /> */}
     </View>
   );
 }
