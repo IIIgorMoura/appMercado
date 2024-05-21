@@ -17,6 +17,22 @@ const estiloModal = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 25,
     },
+    contentReduzido: {
+        backgroundColor: "#fff",
+        width: "90%",
+        height: 300,
+        paddingTop: 10,
+        paddingBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 25,
+    },
+    baseBtnsModalReduzido: {
+        flexDirection: 'row',
+        width: '95%',
+        height: '20%',
+        justifyContent: 'center',
+    },
     btnVoltar: {
         width: '45%',
         backgroundColor: "none",

@@ -1,5 +1,7 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
+import ESTILOS from "../styles/ESTILOS";
+import estiloModal from "../styles/estiloModal";
 
 export function AvisoLimiteCusto({ visible, onContinue, onStop }) {
     return (
@@ -9,15 +11,24 @@ export function AvisoLimiteCusto({ visible, onContinue, onStop }) {
             visible={visible}
             onRequestClose={onStop}
         >
-            <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
-                    <Text style={styles.modalText}>Limite de custo alcançado! Deseja continuar adicionando produtos?</Text>
-                    <TouchableOpacity style={styles.modalButton} onPress={onContinue}>
-                        <Text style={styles.modalButtonText}>Continuar</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.modalButton} onPress={onStop}>
-                        <Text style={styles.modalButtonText}>Parar</Text>
-                    </TouchableOpacity>
+            <View style={estiloModal.container}>
+                <View style={estiloModal.contentReduzido}>
+                    <Text >Aviso: Limite de custo alcançado!</Text>
+                    <Text >Deseja continuar adicionando produtos?</Text>
+                    <View style={estiloModal.baseBtnsModalReduzido}>
+                        <TouchableOpacity
+                            style={estiloModal.btnVoltar}
+                            onPress={onContinue}
+                        >
+                            <Text style={ESTILOS.txtRoxo}>Continuar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={estiloModal.btnProximo}
+                            onPress={onStop}
+                        >
+                            <Text style={ESTILOS.txtBranco}>Parar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </Modal>
@@ -25,31 +36,4 @@ export function AvisoLimiteCusto({ visible, onContinue, onStop }) {
 }
 
 const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        width: 300,
-        padding: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        alignItems: 'center',
-    },
-    modalText: {
-        fontSize: 18,
-        marginBottom: 20,
-    },
-    modalButton: {
-        marginTop: 10,
-        padding: 10,
-        backgroundColor: '#007bff',
-        borderRadius: 5,
-    },
-    modalButtonText: {
-        color: '#fff',
-        fontSize: 16,
-    },
 });

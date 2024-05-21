@@ -147,7 +147,13 @@ export function ListaCompras({}) {
                 visible={modalAddProdutoVisible}
                 onRequestClose={fecharModalAddProduto}
             >
-                <AddProdutoLista fecharModalAddProduto={fecharModalAddProduto} listaId={listaId} />
+                <AddProdutoLista 
+                    fecharModalAddProduto={fecharModalAddProduto} 
+                    listaId={listaId}
+                    limite={lista.limite}
+                    totalPreco={totalPreco}
+                    setModalLimiteAlcancadoVisible={setModalLimiteAlcancadoVisible}
+                />
             </Modal>
 
             <AvisoLimiteCusto
@@ -158,6 +164,7 @@ export function ListaCompras({}) {
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

@@ -13,7 +13,7 @@ import { AddOutros } from "./modalsProdutoCategoria/addOutros";
 
 import { AvisoLimiteCusto } from "./AvisoLimiteCusto";
 
-export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
+export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalPreco, setModalLimiteAlcancadoVisible }) {
   const [produtos, setProdutos] = useState([]);
   const [modalCategoria, setModalCategoria] = useState(null);
 
@@ -38,6 +38,24 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
       fecharModalCategoria();
     } catch (error) {
       console.error('Erro ao salvar produtos na lista: ', error);
+    }
+  };
+
+  const adicionarProduto = async (produto) => {
+    try {
+      const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
+      const produtosLista = produtosAtualizados ? JSON.parse(produtosAtualizados) : [];
+      const novoTotal = totalPreco + (produto.quantidade * produto.preco);
+
+      if (novoTotal >= limite) {
+        setModalLimiteAlcancadoVisible(true);
+      } else {
+        produtosLista.push(produto);
+        await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosLista));
+        fecharModalAddProduto();
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar produto: ', error);
     }
   };
 
@@ -130,11 +148,16 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
       </Modal>
 
 
-      {/* <AvisoLimiteCusto
-        visible={modalLimiteAlcancadoVisible}
-        onContinue={continuarAdicionandoProdutos}
-        onStop={pararAdicaoProdutos}
-      /> */}
+      <AvisoLimiteCusto
+        visible={setModalLimiteAlcancadoVisible}
+        onContinue={() => {
+          setModalLimiteAlcancadoVisible(false);
+        }}
+        onStop={() => {
+          setModalLimiteAlcancadoVisible(false);
+          fecharModalAddProduto();
+        }}
+      />
     </View>
   );
 }

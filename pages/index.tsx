@@ -65,7 +65,7 @@ export function Home() {
         <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20}></Ionicons>
       </TouchableOpacity>
 
-      <FlatList 
+      <FlatList
         style={ESTILOS.listaElementos}
         showsVerticalScrollIndicator={false}
         data={listasCompras}
@@ -75,7 +75,7 @@ export function Home() {
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
             <Text>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
-              <Text style={{ color: 'red' }}>Remover</Text>
+              <Ionicons name="trash-bin-outline" size={24} color="red" />
             </TouchableOpacity>
           </TouchableOpacity>
         )}
