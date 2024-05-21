@@ -18,6 +18,7 @@ export function ListaCompras({}) {
     const [lista, setLista] = useState(null);
     const [produtos, setProdutos] = useState([]);
     const [modalAddProdutoVisible, setModalAddProdutoVisible] = useState(false);
+    const [totalPreco, setTotalPreco] = useState(0);
 
     useEffect(() => {
         const carregarDados = async () => {
@@ -25,7 +26,9 @@ export function ListaCompras({}) {
                 const lista = await obterListaPorId(listaId);
                 setLista(lista);
                 const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
-                setProdutos(produtos ? JSON.parse(produtos) : []);
+                const produtosLista = produtos ? JSON.parse(produtos) : [];
+                setProdutos(produtosLista);
+                calcularTotal(produtosLista);
             } catch (error) {
                 console.error('Erro ao carregar os dados: ', error);
             }
@@ -37,7 +40,9 @@ export function ListaCompras({}) {
     const atualizarListaProdutos = async () => {
         try {
             const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
-            setProdutos(produtosAtualizados ? JSON.parse(produtosAtualizados) : []);
+            const produtosLista = produtosAtualizados ? JSON.parse(produtosAtualizados) : [];
+            setProdutos(produtosLista);
+            calcularTotal(produtosLista);
         } catch (error) {
             console.error('Erro ao atualizar lista de produtos: ', error);
         }
@@ -49,7 +54,12 @@ export function ListaCompras({}) {
 
     const fecharModalAddProduto = () => {
         setModalAddProdutoVisible(false);
-        atualizarListaProdutos(); // Atualiza a lista de produtos ao fechar o modal
+        atualizarListaProdutos();
+    };
+
+    const calcularTotal = (produtos) => {
+        const total = produtos.reduce((acc, produto) => acc + (produto.quantidade * produto.preco), 0);
+        setTotalPreco(total);
     };
 
     if (!listaId) {
@@ -73,18 +83,23 @@ export function ListaCompras({}) {
             <View>
                 <Text style={styles.title}>{lista.nomeLista}</Text>
                 <Text style={styles.subtitle}>Limite de Custo: R${lista.limite.toFixed(2)}</Text>
+                <Text style={styles.totalPreco}>Total: R${totalPreco.toFixed(2)}</Text>
             </View>
 
             <FlatList
                 data={produtos}
                 keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => (
-                    <View style={styles.produtoContainer}>
-                        <Text style={styles.produtoNome}>{item.nome}</Text>
-                        <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
-                        <Text style={styles.produtoPreco}>Preço: R${item.preco.toFixed(2)}</Text>
-                    </View>
-                )}
+                renderItem={({ item }) => {
+                    const precoTotalProduto = item.quantidade * item.preco;
+                    return (
+                        <View style={styles.produtoContainer}>
+                            <Text style={styles.produtoNome}>{item.nome}</Text>
+                            <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
+                            <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
+                            <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
+                        </View>
+                    );
+                }}
             />
 
             <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalAddProduto}>
@@ -119,6 +134,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginBottom: 10,
     },
+    totalPreco: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: 'green',
+        marginBottom: 20,
+    },
     produtoContainer: {
         padding: 10,
         borderBottomWidth: 1,
@@ -134,6 +155,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'gray',
     },
+    produtoPrecoTotal: {
+        fontSize: 16,
+        color: 'blue',
+    },
     btnAdicionar: {
         marginTop: 20,
         padding: 10,
@@ -148,102 +173,3 @@ const styles = StyleSheet.create({
 });
 
 export default ListaCompras;
-// import React, { useState, useEffect } from "react";
-// import { StyleSheet, Text, View, FlatList } from "react-native";
-// import { useRoute } from '@react-navigation/native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import ESTILOS from "../styles/ESTILOS";
-// import { obterListaPorId } from '../hooks/bancoLista';
-
-// export function ListaCompras({ navigation }) {
-//     const route = useRoute();
-//     const { listaId } = route.params as RouteParams;
-
-//     interface RouteParams {
-//         listaId?: number;
-//     }
-    
-//     const [lista, setLista] = useState();
-//     const [produtos, setProdutos] = useState([]);
-
-//     useEffect(() => {
-//         const carregarLista = async () => {
-//             try {
-//                 // Carregar lista de produtos da AsyncStorage
-//                 const listaProdutos = await AsyncStorage.getItem(`lista_${listaId}`);
-//                 setProdutos(listaProdutos ? JSON.parse(listaProdutos) : []);
-
-//                 // Carregar outras informações da lista, se necessário
-//                 const lista = await obterListaPorId(listaId);
-//                 setLista(lista);
-//             } catch (error) {
-//                 console.error('Erro ao carregar a lista de compras: ', error);
-//             }
-//         };
-
-//         carregarLista();
-//     }, []);
-
-//     if (!produtos) {
-//         return (
-//             <View style={styles.container}>
-//                 <Text>Carregando...</Text>
-//             </View>
-//         );
-//     }
-
-//     return (
-//         <View style={ESTILOS.container}>
-//             <View>
-//                 <Text style={styles.title}>{lista.nomeLista}</Text>
-//                 <Text style={styles.subtitle}>Limite de Custo: R${lista.limite.toFixed(2)}</Text>
-//             </View>
-
-//             <FlatList
-//                 data={produtos}
-//                 keyExtractor={(item, index) => index.toString()}
-//                 renderItem={({ item }) => (
-//                     <View style={styles.produtoContainer}>
-//                         <Text style={styles.produtoNome}>{item.nome}</Text>
-//                         <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
-//                         <Text style={styles.produtoPreco}>Preço: R${item.preco.toFixed(2)}</Text>
-//                     </View>
-//                 )}
-//             />
-//         </View>
-//     );
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         padding: 20,
-//         backgroundColor: '#fff',
-//     },
-//     title: {
-//         fontSize: 24,
-//         fontWeight: 'bold',
-//         marginBottom: 10,
-//     },
-//     subtitle: {
-//         fontSize: 18,
-//         marginBottom: 10,
-//     },
-//     produtoContainer: {
-//         padding: 10,
-//         borderBottomWidth: 1,
-//         borderBottomColor: '#ddd',
-//     },
-//     produtoNome: {
-//         fontSize: 18,
-//     },
-//     produtoQuantidade: {
-//         fontSize: 16,
-//     },
-//     produtoPreco: {
-//         fontSize: 16,
-//         color: 'gray',
-//     },
-// });
-
-// export default ListaCompras;

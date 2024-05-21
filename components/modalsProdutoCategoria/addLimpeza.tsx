@@ -4,7 +4,7 @@ import { obterProdutos } from '../../hooks/bancoProduto';
 import ESTILOS from '../../styles/ESTILOS';
 import estiloModal from '../../styles/estiloModal';
 
-export function AddLimpeza({ fecharModalCategoria, salvarProdutos }) {
+export function AddLimpeza({ fecharModalCategoria, adicionarProdutos }) {
   const [produtos, setProdutos] = useState([]);
   const [quantidades, setQuantidades] = useState({});
 
@@ -12,7 +12,7 @@ export function AddLimpeza({ fecharModalCategoria, salvarProdutos }) {
     const carregarProdutos = async () => {
       try {
         const todosProdutos = await obterProdutos();
-        const produtosLimpeza = todosProdutos.filter(produto => produto.tipo === 'limpeza');
+        const produtosLimpeza = todosProdutos.filter(produto => produto.tipo === 'Limpeza');
         const quantidadesInicial = {};
         produtosLimpeza.forEach(produto => {
           quantidadesInicial[produto.id] = 0;
@@ -68,7 +68,7 @@ export function AddLimpeza({ fecharModalCategoria, salvarProdutos }) {
       ...produto,
       quantidade: quantidades[produto.id]
     })).filter(produto => produto.quantidade > 0);
-    salvarProdutos(produtosSelecionados);
+    adicionarProdutos(produtosSelecionados);
     fecharModalCategoria();
   };
 

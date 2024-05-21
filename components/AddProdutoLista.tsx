@@ -9,8 +9,7 @@ import { AddCarnes } from "./modalsProdutoCategoria/addCarnes";
 import { AddPadaria } from "./modalsProdutoCategoria/addPadaria";
 import { AddFrutas } from "./modalsProdutoCategoria/addFrutas";
 import { AddLimpeza } from "./modalsProdutoCategoria/addLimpeza";
-import { AddOutros } from "./modalsProdutoCategoria/addOutros"
-
+import { AddOutros } from "./modalsProdutoCategoria/addOutros";
 
 export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
   const [produtos, setProdutos] = useState([]);
@@ -24,44 +23,45 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
     setModalCategoria(null);
   };
 
-  const salvarProdutosNaLista = async (produtosSelecionados) => {
+  const adicionarProdutos = async (produtosSelecionados) => {
     try {
-      // Salvar produtos na AsyncStorage
       const produtosExistentes = await AsyncStorage.getItem(`lista_${listaId}`);
       const listaProdutos = produtosExistentes ? JSON.parse(produtosExistentes) : [];
       const novaListaProdutos = [...listaProdutos, ...produtosSelecionados];
       await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(novaListaProdutos));
 
-      // Recarregar lista de produtos após adição
       const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
       setProdutos(produtosAtualizados ? JSON.parse(produtosAtualizados) : []);
 
-      // Fechar modal após salvar produtos
-      fecharModalAddProduto();
+      fecharModalCategoria();
     } catch (error) {
       console.error('Erro ao salvar produtos na lista: ', error);
     }
   };
 
+  const concluirAdicao = () => {
+    fecharModalAddProduto();
+  };
+
   const renderModalCategoria = () => {
     switch (modalCategoria) {
       case 'Vegetais':
-        return <AddVegetais fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddVegetais fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       case 'Carnes':
-        return <AddCarnes fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddCarnes fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       case 'Padaria':
-        return <AddPadaria fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddPadaria fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       case 'Frutas':
-        return <AddFrutas fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddFrutas fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       case 'Limpeza':
-        return <AddLimpeza fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddLimpeza fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       case 'Outros':
-        return <AddOutros fecharModalCategoria={fecharModalCategoria} salvarProdutos={salvarProdutosNaLista} />;
+        return <AddOutros fecharModalCategoria={fecharModalCategoria} adicionarProdutos={adicionarProdutos} />;
 
       default:
         return null;
@@ -104,11 +104,14 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId }) {
             <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosOutros.png')}></Image>
             <Text style={styles.txtCategoriaProdutos}>Outros</Text>
           </TouchableOpacity>
-
         </ScrollView>
+
         <View style={estiloModal.baseBtnsModal}>
           <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalAddProduto}>
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={estiloModal.btnProximo} onPress={concluirAdicao}>
+            <Text style={ESTILOS.txtBranco}>Concluir</Text>
           </TouchableOpacity>
         </View>
       </View>

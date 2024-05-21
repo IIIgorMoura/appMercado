@@ -4,7 +4,7 @@ import { obterProdutos } from '../../hooks/bancoProduto';
 import ESTILOS from '../../styles/ESTILOS';
 import estiloModal from '../../styles/estiloModal';
 
-export function AddFrutas({ fecharModalCategoria, salvarProdutos }) {
+export function AddFrutas({ fecharModalCategoria, adicionarProdutos }) {
   const [produtos, setProdutos] = useState([]);
   const [quantidades, setQuantidades] = useState({});
 
@@ -68,7 +68,7 @@ export function AddFrutas({ fecharModalCategoria, salvarProdutos }) {
       ...produto,
       quantidade: quantidades[produto.id]
     })).filter(produto => produto.quantidade > 0);
-    salvarProdutos(produtosSelecionados);
+    adicionarProdutos(produtosSelecionados);
     fecharModalCategoria();
   };
 
