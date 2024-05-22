@@ -7,6 +7,7 @@ import ESTILOS from '../styles/ESTILOS';
 import { AddProdutoLista } from '../components/AddProdutoLista';
 import { AvisoLimiteCusto } from '../components/AvisoLimiteCusto';
 import { obterListaPorId } from '../hooks/bancoLista';
+import EditarProdutoPRODUTO from '../components/modalsProdutoCategoria/editarProdutoPRODUTO';  // Importa o modal de edição de produto
 
 interface RouteParams {
     listaId?: number;
@@ -19,6 +20,8 @@ export function ListaCompras({ }) {
     const [lista, setLista] = useState(null);
     const [produtos, setProdutos] = useState([]);
     const [modalAddProdutoVisible, setModalAddProdutoVisible] = useState(false);
+    const [modalEditarProdutoVisible, setModalEditarProdutoVisible] = useState(false);
+    const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [totalPreco, setTotalPreco] = useState(0);
     const [modalLimiteAlcancadoVisivel, setModalLimiteAlcancadoVisivel] = useState(false);
 
@@ -47,15 +50,9 @@ export function ListaCompras({ }) {
     const atualizarProdutos = async (produtosAtualizados) => {
         await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosAtualizados));
         setProdutos(produtosAtualizados);
-    
+
         const totalPrecoCalculado = produtosAtualizados.reduce((acc, produto) => acc + (produto.preco * produto.quantidade), 0);
         setTotalPreco(totalPrecoCalculado);
-    
-        // Atualizar o preço unitário de cada produto
-        produtosAtualizados.forEach(produto => {
-            const precoUnitario = produto.quantidade > 0 ? produto.preco : 0;
-            produto.precoUnitario = precoUnitario;
-        });
     };
 
     const handleRemoveProduto = async (produtoId) => {
@@ -91,6 +88,24 @@ export function ListaCompras({ }) {
         setModalAddProdutoVisible(false);
     };
 
+    const abrirModalEditarProduto = (produto) => {
+        setProdutoSelecionado(produto);
+        setModalEditarProdutoVisible(true);
+    };
+
+    const fecharModalEditarProduto = () => {
+        setModalEditarProdutoVisible(false);
+        setProdutoSelecionado(null);
+    };
+
+    const atualizarProduto = async (produtoAtualizado) => {
+        const produtosAtualizados = produtos.map(produto => 
+            produto.id === produtoAtualizado.id ? { ...produto, ...produtoAtualizado } : produto
+        );
+        await atualizarProdutos(produtosAtualizados);
+        fecharModalEditarProduto();
+    };
+
     const calcularTotal = (produtos, limite) => {
         const total = produtos.reduce((acc, produto) => acc + (produto.quantidade * produto.preco), 0);
         setTotalPreco(total);
@@ -108,17 +123,6 @@ export function ListaCompras({ }) {
     const pararAdicaoProdutos = () => {
         setModalLimiteAlcancadoVisivel(false);
         setModalAddProdutoVisible(false);
-    };
-
-    const removerProduto = async (id) => {
-        try {
-            const produtosAtualizados = produtos.filter(produto => produto.id !== id);
-            await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosAtualizados));
-            setProdutos(produtosAtualizados);
-            calcularTotal(produtosAtualizados, lista.limite);
-        } catch (error) {
-            console.error('Erro ao remover produto: ', error);
-        }
     };
 
     if (!listaId) {
@@ -155,14 +159,24 @@ export function ListaCompras({ }) {
                     const precoTotalProduto = item.quantidade * item.preco;
                     return (
                         <View style={ESTILOS.listaItem}>
-                                <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
-                                <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
-                                <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
-                                <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
-                                <TouchableOpacity onPress={() => removerProduto(item.id)}>
+                            <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
+                            <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
+                            <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
+                            <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
+                            <View style={styles.itemAcoes}>
+                                <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
+                                    <Ionicons name="add-circle-outline" size={24} color="green" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleDecrementarQuantidade(item.id)}>
+                                    <Ionicons name="remove-circle-outline" size={24} color="red" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
+                                    <Ionicons name="create-outline" size={24} color="blue" />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
                                     <Ionicons name="trash-bin-outline" size={24} color="red" />
                                 </TouchableOpacity>
-
+                            </View>
                         </View>
                     );
                 }}
@@ -187,11 +201,33 @@ export function ListaCompras({ }) {
                     setModalLimiteAlcancadoVisivel={setModalLimiteAlcancadoVisivel}
                 />
             </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalEditarProdutoVisible}
+                onRequestClose={fecharModalEditarProduto}
+            >
+                <EditarProdutoPRODUTO
+                    produto={produtoSelecionado}
+                    fecharModal={fecharModalEditarProduto}
+                    atualizarProdutos={atualizarProduto}
+                />
+            </Modal>
+
+            <AvisoLimiteCusto
+                modalAvisoVisivel={modalLimiteAlcancadoVisivel}
+                aoContinuar={continuarAdicionandoProdutos}
+                aoParar={pararAdicaoProdutos}
+            />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    listaProdutos: {
+        paddingBottom: 100,
+    },
     container: {
         flex: 1,
         padding: 20,
@@ -225,6 +261,13 @@ const styles = StyleSheet.create({
     produtoPrecoTotal: {
         fontSize: 16,
         color: 'blue',
+    },
+    itemAcoes: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginTop: 10,
     },
     btnAdicionar: {
         marginTop: 20,

@@ -12,3 +12,5 @@ Adicionar opção de editar listas e produtos;
 Atualizar as listas qnd produto do banco de dados é removido
 Transformar ABA NOVIDADES em:
 	Calculadora OU loop de carregamento(n ideal mas opc secundaria)
+
+Corrigir Alteração de itens ALT valores na página listaCompras
