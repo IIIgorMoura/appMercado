@@ -47,9 +47,15 @@ export function ListaCompras({ }) {
     const atualizarProdutos = async (produtosAtualizados) => {
         await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosAtualizados));
         setProdutos(produtosAtualizados);
-
+    
         const totalPrecoCalculado = produtosAtualizados.reduce((acc, produto) => acc + (produto.preco * produto.quantidade), 0);
         setTotalPreco(totalPrecoCalculado);
+    
+        // Atualizar o preço unitário de cada produto
+        produtosAtualizados.forEach(produto => {
+            const precoUnitario = produto.quantidade > 0 ? produto.preco : 0;
+            produto.precoUnitario = precoUnitario;
+        });
     };
 
     const handleRemoveProduto = async (produtoId) => {
