@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const produtosPadrao = [
   { id: 1, nome: 'Arroz', preco: 5.99, tipo: 'Grãos' },
   { id: 2, nome: 'Feijão', preco: 4.99, tipo: 'Grãos' },
-  // Adicione mais produtos padrão aqui
 ];
 
 export const adicionarProduto = async (produto) => {

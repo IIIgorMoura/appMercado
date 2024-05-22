@@ -23,7 +23,7 @@ export function Produtos() {
       <Text>Categorias de Produtos</Text>
 
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalNovoProduto}>
-        <Text style={ESTILOS.txtBranco}>Adicionar Novo Produto</Text>
+        <Text style={ESTILOS.txtBtnDestaque}>Adicionar Novo Produto</Text>
         <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20}></Ionicons>
       </TouchableOpacity>
 
@@ -91,6 +91,6 @@ const styleProdutos = StyleSheet.create({
   },
   txtCategoriaProdutos: {
     height: '15%',
-    fontSize: 30,
+    fontSize: 20,
   }
 });

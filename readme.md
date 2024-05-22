@@ -8,9 +8,7 @@ Dev produtos das categorias base, vindo de inicio;
 Adicionar modal de confirmação antes de deletar lista de compras ou produto;
 Adicionar opção de editar listas e produtos;
 
----- Corrigir lógica modals AddProduto ----
-Ao atingir o limite de custo, dentro do modal AddProdutoCategoria, surgir o modal AvisoLimiteCusto
-	Se user decidir parar, fecha ambos modais, se user decidir continuar fecha somente o modal AvisoLimiteCusto
-	De qlqr jeito se passar do limite o txt Limite Custo fica vermelho
-
-Add btn para remover um item da lista de compras
+---- Corrigir ----
+Atualizar as listas qnd produto do banco de dados é removido
+Transformar ABA NOVIDADES em:
+	Calculadora OU loop de carregamento(n ideal mas opc secundaria)

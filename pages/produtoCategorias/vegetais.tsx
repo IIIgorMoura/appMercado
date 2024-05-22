@@ -31,9 +31,9 @@ export function Vegetais() {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <View style={styles.itemInfo}>
-        <Text style={styles.title}>{item.nome}</Text>
+    <View style={ESTILOS.listaItem}>
+      <View>
+        <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
         <Text>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
       </View>
       <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
@@ -44,8 +44,8 @@ export function Vegetais() {
 
   return (
     <View style={ESTILOS.container}>
-      <Text style={styles.header}>Vegetais</Text>
       <FlatList
+        style={ESTILOS.listaElementos}
         data={produtos}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
@@ -55,23 +55,4 @@ export function Vegetais() {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
-  item: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#f9c2ff',
-    padding: 20,
-    marginVertical: 8,
-  },
-  itemInfo: {
-    flexDirection: 'column',
-  },
-  title: {
-    fontSize: 24,
-  },
 });

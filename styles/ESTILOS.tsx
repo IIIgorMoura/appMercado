@@ -42,6 +42,10 @@ const ESTILOS = StyleSheet.create({
     marginVertical: 10,
     flexDirection: 'row',
   },
+  txtBtnDestaque: {
+    fontSize: 18,
+    color: "#fff",
+  },
   btnDestaqueIcon: {
     margin: 10,
   },
@@ -58,6 +62,10 @@ const ESTILOS = StyleSheet.create({
   listaElementos: {
     marginVertical: 10,
     width: '90%',
+  },
+  listaItemTitulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   listaItem: {
     width: '100%',

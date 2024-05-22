@@ -61,8 +61,8 @@ export function Home() {
   return (
     <View style={ESTILOS.container}>
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalCriarLista}>
-        <Text style={ESTILOS.txtBranco}>Adicionar Nova Lista</Text>
-        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20}></Ionicons>
+        <Text style={ESTILOS.txtBtnDestaque}>Adicionar Nova Lista</Text>
+        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
       </TouchableOpacity>
 
       <FlatList
@@ -71,7 +71,7 @@ export function Home() {
         data={listasCompras}
         renderItem={({ item }) => (
           <TouchableOpacity style={ESTILOS.listaItem} onPress={() => navegarParaListaCompras(item.id)}>
-            <Text>{item.nomeLista}</Text>
+            <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
             <Text>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>

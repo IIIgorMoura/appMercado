@@ -142,21 +142,20 @@ export function ListaCompras({ }) {
             </View>
 
             <FlatList
+                style={ESTILOS.listaElementos}
                 data={produtos}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
                     const precoTotalProduto = item.quantidade * item.preco;
                     return (
-                        <View style={styles.produtoContainer}>
-                            <View style={styles.produtoContainer}>
-                                <Text style={styles.produtoNome}>{item.nome}</Text>
+                        <View style={ESTILOS.listaItem}>
+                                <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
                                 <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
                                 <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                                 <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
                                 <TouchableOpacity onPress={() => removerProduto(item.id)}>
                                     <Ionicons name="trash-bin-outline" size={24} color="red" />
                                 </TouchableOpacity>
-                            </View>
 
                         </View>
                     );
@@ -164,7 +163,7 @@ export function ListaCompras({ }) {
             />
 
             <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalAddProduto}>
-                <Text style={styles.btnAdicionarText}>Adicionar Produtos</Text>
+                <Text style={ESTILOS.txtBtnDestaque}>Adicionar Produtos</Text>
                 <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20} />
             </TouchableOpacity>
 
@@ -209,14 +208,6 @@ const styles = StyleSheet.create({
     },
     totalPrecoLimite: {
         color: 'red',
-    },
-    produtoContainer: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-    },
-    produtoNome: {
-        fontSize: 18,
     },
     produtoQuantidade: {
         fontSize: 16,
