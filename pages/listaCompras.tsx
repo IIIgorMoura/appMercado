@@ -23,31 +23,58 @@ export function ListaCompras({ }) {
     const [modalLimiteAlcancadoVisivel, setModalLimiteAlcancadoVisivel] = useState(false);
 
     useEffect(() => {
-        const carregarDados = async () => {
-            try {
-                const lista = await obterListaPorId(listaId);
-                setLista(lista);
-                const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
-                const produtosLista = produtos ? JSON.parse(produtos) : [];
-                setProdutos(produtosLista);
-                calcularTotal(produtosLista, lista.limite);
-            } catch (error) {
-                console.error('Erro ao carregar os dados: ', error);
-            }
-        };
-
-        carregarDados();
+        if (listaId) {
+            const fetchLista = async () => {
+                const listaData = await obterListaPorId(listaId);
+                setLista(listaData);
+            };
+            fetchLista();
+        }
     }, [listaId]);
 
-    const atualizarListaProdutos = async () => {
-        try {
-            const produtosAtualizados = await AsyncStorage.getItem(`lista_${listaId}`);
-            const produtosLista = produtosAtualizados ? JSON.parse(produtosAtualizados) : [];
-            setProdutos(produtosLista);
-            calcularTotal(produtosLista, lista.limite);
-        } catch (error) {
-            console.error('Erro ao atualizar lista de produtos: ', error);
-        }
+    useEffect(() => {
+        const fetchProdutos = async () => {
+            const produtosData = await AsyncStorage.getItem(`lista_${listaId}`);
+            const produtos = produtosData ? JSON.parse(produtosData) : [];
+            setProdutos(produtos);
+
+            const totalPrecoCalculado = produtos.reduce((acc, produto) => acc + (produto.preco * produto.quantidade), 0);
+            setTotalPreco(totalPrecoCalculado);
+        };
+        fetchProdutos();
+    }, [listaId, modalAddProdutoVisible]);
+
+    const atualizarProdutos = async (produtosAtualizados) => {
+        await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosAtualizados));
+        setProdutos(produtosAtualizados);
+
+        const totalPrecoCalculado = produtosAtualizados.reduce((acc, produto) => acc + (produto.preco * produto.quantidade), 0);
+        setTotalPreco(totalPrecoCalculado);
+    };
+
+    const handleRemoveProduto = async (produtoId) => {
+        const produtosAtualizados = produtos.filter(produto => produto.id !== produtoId);
+        await atualizarProdutos(produtosAtualizados);
+    };
+
+    const handleIncrementarQuantidade = async (produtoId) => {
+        const produtosAtualizados = produtos.map(produto => {
+            if (produto.id === produtoId) {
+                return { ...produto, quantidade: produto.quantidade + 1 };
+            }
+            return produto;
+        });
+        await atualizarProdutos(produtosAtualizados);
+    };
+
+    const handleDecrementarQuantidade = async (produtoId) => {
+        const produtosAtualizados = produtos.map(produto => {
+            if (produto.id === produtoId && produto.quantidade > 1) {
+                return { ...produto, quantidade: produto.quantidade - 1 };
+            }
+            return produto;
+        }).filter(produto => produto.quantidade > 0);
+        await atualizarProdutos(produtosAtualizados);
     };
 
     const abrirModalAddProduto = () => {
@@ -56,7 +83,6 @@ export function ListaCompras({ }) {
 
     const fecharModalAddProduto = () => {
         setModalAddProdutoVisible(false);
-        atualizarListaProdutos();
     };
 
     const calcularTotal = (produtos, limite) => {
@@ -156,12 +182,6 @@ export function ListaCompras({ }) {
                     setModalLimiteAlcancadoVisivel={setModalLimiteAlcancadoVisivel}
                 />
             </Modal>
-
-            <AvisoLimiteCusto
-                modalAvisoVisivel={modalLimiteAlcancadoVisivel}
-                aoContinuar={continuarAdicionandoProdutos}
-                aoParar={pararAdicaoProdutos}
-            />
         </View>
     );
 }

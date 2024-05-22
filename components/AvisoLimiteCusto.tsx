@@ -1,9 +1,9 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from "react-native";
+import React from 'react';
+import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import ESTILOS from "../styles/ESTILOS";
 import estiloModal from "../styles/estiloModal";
 
-export function AvisoLimiteCusto({ modalAvisoVisivel, aoContinuar, aoParar }) {
+export const AvisoLimiteCusto = ({ modalAvisoVisivel, aoContinuar, aoParar }) => {
     return (
         <Modal
             animationType="fade"
@@ -13,20 +13,14 @@ export function AvisoLimiteCusto({ modalAvisoVisivel, aoContinuar, aoParar }) {
         >
             <View style={estiloModal.container}>
                 <View style={estiloModal.contentReduzido}>
-                    <Text >Aviso: Limite de custo alcançado!</Text>
-                    <Text >Deseja continuar adicionando produtos?</Text>
+                    <Text>Limite de custo atingido!</Text>
+                    <Text>Deseja continuar adicionando produtos?</Text>
                     <View style={estiloModal.baseBtnsModalReduzido}>
-                        <TouchableOpacity
-                            style={estiloModal.btnVoltar}
-                            onPress={aoContinuar}
-                        >
-                            <Text style={ESTILOS.txtRoxo}>Continuar</Text>
+                        <TouchableOpacity style={estiloModal.btnVoltar} onPress={aoParar}>
+                            <Text style={ESTILOS.txtRoxo}>Parar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={estiloModal.btnProximo}
-                            onPress={aoParar}
-                        >
-                            <Text style={ESTILOS.txtBranco}>Parar</Text>
+                        <TouchableOpacity style={estiloModal.btnProximo} onPress={aoContinuar}>
+                            <Text style={ESTILOS.txtBranco}>Continuar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -34,6 +28,3 @@ export function AvisoLimiteCusto({ modalAvisoVisivel, aoContinuar, aoParar }) {
         </Modal>
     );
 }
-
-const styles = StyleSheet.create({
-});
