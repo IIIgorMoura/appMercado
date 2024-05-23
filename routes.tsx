@@ -1,6 +1,6 @@
 import { Home } from './pages/index';
 import { Produtos } from './pages/produtos';
-import { Novidades } from './pages/novidades';
+import { Calculadora } from './pages/calculadora';
 import { StatusBar } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -51,9 +51,8 @@ export default function Routes() {
             }}
         >
             <Tab.Screen name="Início" component={IndexStackNavigator} />
-            {/* component={IndexStackNavigator} */}
             <Tab.Screen name="produtos" component={ProdutosStackNavigator} />
-            <Tab.Screen name="novidades" component={Novidades} />
+            <Tab.Screen name="calculadora" component={Calculadora} />
         </Tab.Navigator>
     );
 }
