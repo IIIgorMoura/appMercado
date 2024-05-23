@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ESTILOS from '../styles/ESTILOS';
 
 export function Calculadora() {
     const [exibicao, setExibicao] = useState('');
@@ -9,7 +10,7 @@ export function Calculadora() {
     const handlePressionar = (value: string) => {
         if (value === '=') {
             try {
-                setResultado(eval(exibicao).toString());
+                setResultado(eval(exibicao.replace('^', '**')).toString());
             } catch (e) {
                 setResultado('Error');
             }
@@ -27,7 +28,7 @@ export function Calculadora() {
         if (value === '=') return [styles.btn, styles.equalBtn];
         if (value === '←') return [styles.btn, styles.apagarBtn];
         if (value === 'Limpar') return [styles.btn, styles.limparBtn];
-        if (['+', '-', '/', '*'].includes(value)) return [styles.btn, styles.operacaoBtn];
+        if (['+', '-', '/', '*', '^'].includes(value)) return [styles.btn, styles.operacaoBtn];
         return styles.btn;
     };
 
@@ -41,6 +42,8 @@ export function Calculadora() {
                 return [styles.btnTxt, styles.divideTxt];
             case '*':
                 return [styles.btnTxt, styles.multiplyTxt];
+            case '^':
+                return [styles.btnTxt, styles.powerTxt];
             case '=':
                 return [styles.btnTxt, styles.whiteTxt];
             case '←':
@@ -52,11 +55,22 @@ export function Calculadora() {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={ESTILOS.container}>
             <StatusBar style="light" />
             <View style={styles.displayContainer}>
                 <Text style={styles.exibicao}>{exibicao}</Text>
                 <Text style={styles.resultado}>{resultado}</Text>
+            </View>
+            <View style={styles.linhaBtnSuperior}>
+                <TouchableOpacity style={[styles.btn, styles.limparBtn]} onPress={() => handlePressionar('Limpar')}>
+                    <Text style={getButtonTextStyle('Limpar')}>C</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, styles.apagarBtn]} onPress={() => handlePressionar('←')}>
+                    <Text style={getButtonTextStyle('←')}>←</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn, styles.equalBtn]} onPress={() => handlePressionar('=')}>
+                    <Text style={getButtonTextStyle('=')}>=</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.linhaBtn}>
                 {['7', '8', '9', '/'].map(value => (
@@ -80,19 +94,11 @@ export function Calculadora() {
                 ))}
             </View>
             <View style={styles.linhaBtn}>
-                {['0', '.', '←', '+'].map(value => (
+                {['0', '.', '^', '+'].map(value => (
                     <TouchableOpacity key={value} style={getButtonStyle(value)} onPress={() => handlePressionar(value)}>
                         <Text style={getButtonTextStyle(value)}>{value}</Text>
                     </TouchableOpacity>
                 ))}
-            </View>
-            <View style={styles.linhaBtn}>
-                <TouchableOpacity style={[styles.btn, styles.limparBtn]} onPress={() => handlePressionar('Limpar')}>
-                    <Text style={getButtonTextStyle('Limpar')}>C</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.btn, styles.equalBtn]} onPress={() => handlePressionar('=')}>
-                    <Text style={getButtonTextStyle('=')}>=</Text>
-                </TouchableOpacity>
             </View>
         </View>
     );
@@ -123,6 +129,12 @@ const styles = StyleSheet.create({
         color: 'purple',
         fontWeight: 'bold',
     },
+    linhaBtnSuperior: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+        marginVertical: 5,
+    },
     linhaBtn: {
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -133,7 +145,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 5,
-        width: '20%',
+        width: '22%',
         alignItems: 'center',
     },
     btnTxt: {
@@ -155,6 +167,9 @@ const styles = StyleSheet.create({
     multiplyTxt: {
         color: 'purple',
     },
+    powerTxt: {
+        color: 'purple',
+    },
     equalBtn: {
         backgroundColor: 'purple',
         width: '45%',
@@ -164,10 +179,11 @@ const styles = StyleSheet.create({
     },
     apagarBtn: {
         backgroundColor: 'purple',
+        width: '22%',
     },
     limparBtn: {
         backgroundColor: 'purple',
-        width: '45%',
+        width: '22%',
     },
     whiteTxt: {
         color: 'white',
