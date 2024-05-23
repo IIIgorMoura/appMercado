@@ -87,7 +87,7 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalP
     return (
         <View style={estiloModal.container}>
             <View style={[estiloModal.content, { alignItems: 'center' }]}>
-                <Text>Selecione a Categoria do Produto</Text>
+            <Text style={styles.titulo}>Selecione a Categoria do Produto</Text>
                 <ScrollView
                     style={ESTILOS.listaElementos}
                     showsVerticalScrollIndicator={false}>
@@ -149,28 +149,47 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalP
 
 const styles = StyleSheet.create({
     categoriaProdutos: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 10,
+      backgroundColor: '#f0f0f0',
+      borderRadius: 10,
     },
     imgProdutos: {
-        width: 50,
-        height: 50,
-        marginRight: 10,
+      width: 60,
+      height: 60,
+      marginRight: 10,
+      borderTopLeftRadius: 5,
+     borderBottomLeftRadius: 5,
     },
     txtCategoriaProdutos: {
-        fontSize: 16,
-        fontWeight: 'bold',
+      fontSize: 18,
     },
     modalCategoria: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
-});
+    container: {
+      flex: 1,
+      backgroundColor: 'none',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    content: {
+      backgroundColor: "#fff",
+      width: "8%",
+      height: 600,
+      paddingTop: 10,
+      paddingBottom: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 25,
+    },
+
+    titulo:{
+        fontSize:20,
+        fontWeight:'700'
+    }
+  });

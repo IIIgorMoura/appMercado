@@ -49,16 +49,16 @@ export function Carnes() {
     };
 
     const renderItem = ({ item }) => (
-        <View style={ESTILOS.listaItem}>
+        <View style={styles.item}>
             <View>
-                <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
-                <Text>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
+                <Text style={styles.title}>{item.nome}</Text>
+                <Text style={styles.subTitle}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
             </View>
             <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
-                <Ionicons name="trash-bin-outline" size={24} color="red" />
+                <Ionicons name="trash-bin-outline" style={styles.lixo} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => abrirModalEditar(item)}>
-                <Ionicons name="create-outline" size={24} color="blue" />
+                <Ionicons name="create-outline" style={styles.edit} />
             </TouchableOpacity>
         </View>
     );
@@ -90,6 +90,42 @@ export function Carnes() {
 }
 
 const styles = StyleSheet.create({
-});
+    item: {
+      backgroundColor: '#fff',
+      padding: 20,
+      width: 370,
+      height: 100,
+      
+      marginVertical: '3%',
+      borderRadius: 25,
+    },
+    title: {
+      fontSize: 20,
+      fontWeight : '800',
+    },
+  
+    subTitle: {
+  marginTop: 10,
+  color: '#9400d3',
+  fontWeight : '400',
+  fontSize: 20,
+    },
+
+    lixo: {
+        color: 'red',
+        fontSize: 30,
+        marginLeft: '85%',
+        marginTop: '-8%'
+       
+          },
+
+          edit: {
+            color: 'blue',
+            fontSize: 30,
+            marginLeft: '86%',
+            marginTop: '-23%'
+
+          }
+  });
 
 export default Carnes;

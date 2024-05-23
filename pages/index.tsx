@@ -60,6 +60,7 @@ export function Home() {
 
   return (
     <View style={ESTILOS.container}>
+      <Text style={ESTILOS.titulo}>SUAS LISTAS</Text>
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalCriarLista}>
         <Text style={ESTILOS.txtBtnDestaque}>Adicionar Nova Lista</Text>
         <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
@@ -73,9 +74,9 @@ export function Home() {
           <TouchableOpacity style={ESTILOS.listaItem} onPress={() => navegarParaListaCompras(item.id)}>
             <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
-            <Text>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+            <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
-              <Ionicons name="trash-bin-outline" size={24} color="red" />
+              <Ionicons name="trash-bin-outline"  style={ESTILOS.remover} />
             </TouchableOpacity>
           </TouchableOpacity>
         )}

@@ -55,4 +55,32 @@ export function Frutas() {
 }
 
 const styles = StyleSheet.create({
+  item: {
+    backgroundColor: '#fff',
+    padding: 20,
+    width: 370,
+    height: 100,
+    
+    marginVertical: '3%',
+    borderRadius: 25,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight : '800',
+  },
+
+  subTitle: {
+marginTop: 10,
+color: '#9400d3',
+fontWeight : '400',
+fontSize: 20,
+  },
+
+  lixo: {
+      color: 'red',
+      fontSize: 30,
+      marginLeft: '80%',
+      marginTop: '-15%'
+     
+        },
 });

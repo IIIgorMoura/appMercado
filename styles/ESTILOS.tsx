@@ -64,12 +64,14 @@ const ESTILOS = StyleSheet.create({
     width: '90%',
   },
   listaItemTitulo: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize : 20,
+        fontWeight : '500',
+        marginTop : '5%',
+        marginVertical:5,
   },
   listaItem: {
     width: '100%',
-    height: 125,
+    height: 160,
     backgroundColor: '#fff',
     borderRadius: 25,
     paddingVertical: 10,
@@ -88,6 +90,25 @@ const ESTILOS = StyleSheet.create({
     width: '100%',
     height: '85%',
   },
+
+  titulo: {
+
+    fontWeight: '900',
+    fontSize: 25,
+    marginTop: 10,
+    
+      },
+
+      limiteCusto : {
+        marginVertical:5,
+      },
+
+      remover : {
+        color : 'red',
+      marginLeft : '85%',
+      fontSize: 30,
+      marginTop:'-5%'
+      },
 });
 
 export default ESTILOS

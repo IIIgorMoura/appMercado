@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Modal, Alert } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
@@ -159,23 +159,29 @@ export function ListaCompras({ }) {
                     const precoTotalProduto = item.quantidade * item.preco;
                     return (
                         <View style={ESTILOS.listaItem}>
+                            <View style={styles.listaTexto}>
                             <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
                             <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
                             <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                             <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
+                            </View>
                             <View style={styles.itemAcoes}>
-                                <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
-                                    <Ionicons name="add-circle-outline" size={24} color="green" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => handleDecrementarQuantidade(item.id)}>
-                                    <Ionicons name="remove-circle-outline" size={24} color="red" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
-                                    <Ionicons name="create-outline" size={24} color="blue" />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
-                                    <Ionicons name="trash-bin-outline" size={24} color="red" />
-                                </TouchableOpacity>
+                                <View style={styles.icones}>
+                                    <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
+                                        <Ionicons name="add-circle-outline" style={styles.adicionar} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleDecrementarQuantidade(item.id)}>
+                                        <Ionicons name="remove-circle-outline" style={styles.remover} />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.iconesDireita}>
+                                    <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
+                                        <Ionicons name="create-outline" style={styles.editar} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
+                                        <Ionicons name="trash-bin-outline" style={styles.lixo} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     );
@@ -184,7 +190,7 @@ export function ListaCompras({ }) {
 
             <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalAddProduto}>
                 <Text style={ESTILOS.txtBtnDestaque}>Adicionar Produtos</Text>
-                <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20} />
+                <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
             </TouchableOpacity>
 
             <Modal
@@ -234,22 +240,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     title: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 40,
+        fontWeight: '700',
         marginBottom: 10,
+        marginTop : '5%',
+       
+  
     },
-    subtitle: {
-        fontSize: 18,
-        marginBottom: 10,
+    subtitle : {
+        fontWeight : '600',
+        marginVertical : 5,
+        fontSize : 15,
+      textAlign: 'center',
     },
+
     totalPreco: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '700',
         color: 'green',
         marginBottom: 20,
+        
+        textAlign: 'center',
     },
-    totalPrecoLimite: {
+
+     totalPrecoLimite: {
         color: 'red',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: '700',
+       
     },
     produtoQuantidade: {
         fontSize: 16,
@@ -264,11 +283,40 @@ const styles = StyleSheet.create({
     },
     itemAcoes: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        width: '100%',
-        marginTop: 10,
+        alignItems: 'center',
     },
+    icones: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    adicionar: {
+        color: 'green',
+        fontSize: 30,
+        marginHorizontal: 5,
+    },
+    remover: {
+        color: 'red',
+        fontSize: 30,
+        marginHorizontal: 20,
+    },
+    editar: {
+        color: 'blue',
+        fontSize: 30,
+        marginVertical: 30,
+
+    },
+    lixo: {
+        color: 'red',
+        fontSize: 30,
+       
+        
+    },
+
+    iconesDireita:{
+        marginTop:'-40%',
+    },
+
     btnAdicionar: {
         marginTop: 20,
         padding: 10,
@@ -279,6 +327,10 @@ const styles = StyleSheet.create({
     btnAdicionarText: {
         color: '#fff',
         fontSize: 18,
+    },
+
+    listaTexto:{
+
     },
 });
 

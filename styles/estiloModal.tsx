@@ -65,6 +65,7 @@ const estiloModal = StyleSheet.create({
     formInputText: {
         marginTop: 30,
         marginBottom: 5, 
+        fontWeight: '400',
     },
     input: {
         padding: 10,
@@ -73,6 +74,24 @@ const estiloModal = StyleSheet.create({
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: 0,
+    },
+
+    tituloModal: {
+        fontSize:30,
+        fontWeight:'700',
+       
+        
+    },
+
+   perigoIcon: {
+        fontSize: 50,
+        
+    },
+
+    txtModalReduzido: {
+        marginTop: 10,
+        marginBottom: 20,
+        alignItems: 'center',
     },
 });
 

@@ -33,7 +33,7 @@ export function NovoProduto({ fecharModalNovoProduto }) {
   return (
     <View style={estiloModal.container}>
       <Animatable.View style={estiloModal.content}>
-        <Text>Criar Novo Produto</Text>
+      <Text style={estiloModal.tituloModal}>Criar Novo Produto</Text>
         <View style={estiloModal.formInput}>
           <Text style={estiloModal.formInputText}>Nome do Produto</Text>
           <TextInput

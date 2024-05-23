@@ -13,7 +13,7 @@ export function EditarProduto({ fecharModalCriarLista }) {
 
             <View style={estiloModal.content}>
 
-                <Text>Editar Produto</Text>
+                <Text style={estiloModal.tituloModal}>Editar Produto</Text>
 
                 <View style={estiloModal.baseBtnsModal}>
                     <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModalCriarLista}>

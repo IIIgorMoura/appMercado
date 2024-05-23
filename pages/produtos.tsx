@@ -20,11 +20,11 @@ export function Produtos() {
 
   return (
     <View style={ESTILOS.container}>
-      <Text>Categorias de Produtos</Text>
+     <Text style={ESTILOS.titulo}>CATEGORIA DE PRODUTOS</Text>
 
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalNovoProduto}>
         <Text style={ESTILOS.txtBtnDestaque}>Adicionar Novo Produto</Text>
-        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={20}></Ionicons>
+        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
       </TouchableOpacity>
 
       <Modal
@@ -81,16 +81,21 @@ const styleProdutos = StyleSheet.create({
     height: 300,
     backgroundColor: '#fff',
     alignItems: 'center',
-    padding: 20,
+    
     borderRadius: 25,
     marginVertical: 10,
+    
   },
   imgProdutos: {
     width: '100%',
-    height: '85%',
+    height: '80%',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
   },
   txtCategoriaProdutos: {
     height: '15%',
-    fontSize: 20,
+    fontSize: 30,
+    marginTop: 8,
+    fontWeight: '600',
   }
 });
