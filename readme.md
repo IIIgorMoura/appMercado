@@ -13,3 +13,5 @@ Adicionar opção de editar listas e produtos;
 Atualizar as listas qnd produto do banco de dados é removido
 
 Corrigir Alteração de itens ALT valores na página listaCompras
+
+cavalo
