@@ -36,7 +36,7 @@ function IndexStackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name="InícioLista" component={Home} />
-      <Stack.Screen name="ListaCompras" component={ListaCompras} />
+      <Stack.Screen name="Lista de Compras" component={ListaCompras} />
     </Stack.Navigator>
   );
 }

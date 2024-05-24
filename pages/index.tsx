@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export function Home() {
   const navigation = useNavigation();
   const navegarParaListaCompras = (id: number) => {
-    navigation.navigate('ListaCompras', { listaId: id });
+    navigation.navigate('Lista de Compras', { listaId: id });
   };
 
   const [ativoModalCriarLista, setModalCriarLista] = useState(false);
