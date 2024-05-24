@@ -10,6 +10,6 @@ Adicionar modal de confirmação antes de deletar lista de compras ou produto;
 Adicionar opção de editar listas e produtos;
 
 ---- Corrigir ----
-Atualizar as listas qnd produto do banco de dados é removido
-
+Atualizar as listas qnd produto do banco de dados é removido ou editado
+Add os produtos padrão do app
 Corrigir Alteração de itens ALT valores na página listaCompras
