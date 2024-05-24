@@ -160,13 +160,13 @@ export function ListaCompras({ }) {
                     return (
                         <View style={ESTILOS.listaItem}>
                             <View style={styles.listaTexto}>
-                            <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
-                            <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
-                            <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
-                            <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
+                                <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
+                                <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
+                                <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
+                                <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
                             </View>
                             <View style={styles.itemAcoes}>
-                                <View style={styles.icones}>
+                                <View style={styles.iconesDireita}>
                                     <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
                                         <Ionicons name="add-circle-outline" style={styles.adicionar} />
                                     </TouchableOpacity>
@@ -174,7 +174,7 @@ export function ListaCompras({ }) {
                                         <Ionicons name="remove-circle-outline" style={styles.remover} />
                                     </TouchableOpacity>
                                 </View>
-                                <View style={styles.iconesDireita}>
+                                <View style={styles.iconesEsquerda}>
                                     <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
                                         <Ionicons name="create-outline" style={styles.editar} />
                                     </TouchableOpacity>
@@ -243,32 +243,26 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: '700',
         marginBottom: 10,
-        marginTop : '5%',
-       
-  
+        marginTop: '5%',
     },
-    subtitle : {
-        fontWeight : '600',
-        marginVertical : 5,
-        fontSize : 15,
-      textAlign: 'center',
+    subtitle: {
+        fontWeight: '600',
+        marginVertical: 5,
+        fontSize: 15,
+        textAlign: 'center',
     },
-
     totalPreco: {
         fontSize: 18,
         fontWeight: '700',
         color: 'green',
         marginBottom: 20,
-        
         textAlign: 'center',
     },
-
-     totalPrecoLimite: {
+    totalPrecoLimite: {
         color: 'red',
         textAlign: 'center',
         fontSize: 18,
         fontWeight: '700',
-       
     },
     produtoQuantidade: {
         fontSize: 16,
@@ -285,38 +279,42 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        position: 'relative',
     },
-    icones: {
-        flexDirection: 'row',
+    iconesDireita: {
+        flexDirection: 'column',
         alignItems: 'center',
+        position: 'absolute',
+        right: 10,
+        top: '30%',
+    },
+    iconesEsquerda: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        position: 'absolute',
+        left: 10,
+        top: '30%',
     },
     adicionar: {
         color: 'green',
-        fontSize: 30,
-        marginHorizontal: 5,
+        fontSize: 40,
+        marginVertical: 10,
     },
     remover: {
         color: 'red',
-        fontSize: 30,
-        marginHorizontal: 20,
+        fontSize: 40,
+        marginVertical: 10,
     },
     editar: {
         color: 'blue',
         fontSize: 30,
-        marginVertical: 30,
-
+        marginVertical: 10,
     },
     lixo: {
         color: 'red',
         fontSize: 30,
-       
-        
+        marginVertical: 10,
     },
-
-    iconesDireita:{
-        marginTop:'-40%',
-    },
-
     btnAdicionar: {
         marginTop: 20,
         padding: 10,
@@ -328,9 +326,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
     },
-
-    listaTexto:{
-
+    listaTexto: {
+        flex: 1,
     },
 });
 

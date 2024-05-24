@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10,
         borderRadius: 20,
+        
+        
     },
     exibicao: {
         fontSize: 32,
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
     btn: {
         backgroundColor: 'white',
         padding: 20,
-        borderRadius: 5,
+        borderRadius: 25,
         width: '22%',
         alignItems: 'center',
     },
@@ -156,37 +158,44 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     plusTxt: {
-        color: 'purple',
+        color: '#6622F6',
+        fontWeight: 'bold',
     },
     minusTxt: {
-        color: 'purple',
+        color: '#6622F6',
+        fontWeight: 'bold',
     },
     divideTxt: {
-        color: 'purple',
+        color: '#6622F6',
+        fontWeight: 'bold',
     },
     multiplyTxt: {
-        color: 'purple',
+        color: '#6622F6',
+        fontWeight: 'bold',
     },
     powerTxt: {
-        color: 'purple',
+        color: '#6622F6',
+        fontWeight: 'bold',
+
     },
     equalBtn: {
-        backgroundColor: 'purple',
+        backgroundColor: '#6622F6',
         width: '45%',
     },
     equalTxt: {
         color: 'white',
     },
     apagarBtn: {
-        backgroundColor: 'purple',
+        backgroundColor: '#6622F6',
         width: '22%',
     },
     limparBtn: {
-        backgroundColor: 'purple',
+        backgroundColor: '#6622F6',
         width: '22%',
     },
     whiteTxt: {
         color: 'white',
+        fontWeight: 'bold',
     },
 });
 
