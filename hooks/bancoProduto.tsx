@@ -1,9 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const produtosPadrao = [
-  { id: 1, nome: 'Arroz', preco: 5.99, tipo: 'Vegetais' },
-  { id: 2, nome: 'Feijão', preco: 4.99, tipo: 'Vegetais' },
+  { id: 1, nome: 'Arroz', preco: 5.99, tipo: 'vegetais' },
+  { id: 2, nome: 'Feijão', preco: 4.99, tipo: 'vegetais' },
+  // Adicione mais produtos padrão conforme necessário
 ];
+
+const verificarProdutosPadrao = async () => {
+  try {
+    const produtosSalvos = await AsyncStorage.getItem('produtos');
+    if (!produtosSalvos) {
+      await AsyncStorage.setItem('produtos', JSON.stringify(produtosPadrao));
+    }
+  } catch (error) {
+    console.error('Erro ao verificar produtos padrão: ', error);
+  }
+};
+
+export default verificarProdutosPadrao;
 
 export const adicionarProduto = async (produto) => {
   try {
