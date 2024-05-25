@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, Modal, ScrollView } fr
 import { useState, useCallback } from 'react';
 import ESTILOS from '../styles/ESTILOS';
 import { NovoProduto } from '../components/NovoProduto';
+import verificarProdutosPadrao from '../hooks/bancoProduto';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -30,6 +31,7 @@ export function Produtos() {
       if (valor === null) {
         setModalProdutoTutorial(true);
         await AsyncStorage.setItem('modalTutorialProdutosExibido', 'true');
+        verificarModalTutorialProduto();
       }
 
       const deveExibirFimTutorial = await AsyncStorage.getItem('deveExibirFimTutorial');
