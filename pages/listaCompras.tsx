@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image, Modal } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +7,15 @@ import ESTILOS from '../styles/ESTILOS';
 import { AddProdutoLista } from '../components/AddProdutoLista';
 import { AvisoLimiteCusto } from '../components/AvisoLimiteCusto';
 import { obterListaPorId } from '../hooks/bancoLista';
+
+const icones = {
+    vegetais: require('../assets/icons/produtoVegetal.png'),
+    carnes: require('../assets/icons/produtoCarne.png'),
+    padaria: require('../assets/icons/produtoPadaria.png'),
+    frutas: require('../assets/icons/produtoFruta.png'),
+    limpeza: require('../assets/icons/produtoLimpeza.png'),
+    outros: require('../assets/icons/produtoOutros.png'),
+};
 
 interface RouteParams {
     listaId?: number;
@@ -128,29 +137,32 @@ export function ListaCompras({ }) {
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
                     const precoTotalProduto = item.quantidade * item.preco;
+                    const iconeProduto = icones[item.tipo];
+
                     return (
                         <View style={styles.listaItem}>
-                              
+                            <View style={styles.baseIconeProduto}>
+                                <Image source={iconeProduto} style={styles.iconeProduto} />
+                            </View>
+
                             <View style={styles.listaTexto}>
                                 <Text style={styles.listaItemTitulo}>{item.nome}</Text>
                                 <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                                 <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
                             </View>
                             <View style={styles.itemAcoes}>
-                                
                                 <View style={styles.quantidadeContainer}>
-                                <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
+                                    <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
                                         <Ionicons name="add-circle-outline" style={styles.adicionar} />
                                     </TouchableOpacity>
                                     <Text style={styles.produtoQuantidade}>{item.quantidade}</Text>
                                     <TouchableOpacity onPress={() => handleDecrementarQuantidade(item.id)}>
                                         <Ionicons name="remove-circle-outline" style={styles.remover} />
                                     </TouchableOpacity>
-                                    </View>
-                                    <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
+                                </View>
+                                <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
                                     <Ionicons name="trash-bin-outline" style={styles.lixo} />
                                 </TouchableOpacity>
-                                
                             </View>
                         </View>
                     );
@@ -202,6 +214,14 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fff',
     },
+    baseIconeProduto: {
+        height: 75,
+        justifyContent: 'center',
+    },
+    iconeProduto: {
+        width: 50,
+        height: 50,
+    },
     title: {
         fontSize: 28,
         fontWeight: '700',
@@ -248,7 +268,7 @@ const styles = StyleSheet.create({
     quantidadeContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop:'-50%',
+        marginTop: '-50%',
     },
     adicionar: {
         color: 'green',
@@ -263,11 +283,8 @@ const styles = StyleSheet.create({
     lixo: {
         color: 'red',
         fontSize: 24,
-        marginTop:50,
-        marginLeft:-25,
-    },
-    listaTexto: {
-        marginLeft:'20%'
+        marginTop: 50,
+        marginLeft: -25,
     },
     listaItem: {
         flexDirection: 'row',
@@ -275,11 +292,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
         padding: 15,
         marginTop: 10,
-       
+
         borderRadius: 25,
         width: '95%',
-        left:10,
-       
+        left: 10,
+
     },
     footer: {
         backgroundColor: '#fff',
@@ -292,13 +309,13 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingVertical: 10,
-        borderLeftWidth: 2, 
+        borderLeftWidth: 2,
         borderRightWidth: 2,
         borderTopWidth: 2,
         borderTopColor: '#6622F6',
     },
-    
-    
+
+
     listaElementos: {
         flex: 1,
         marginBottom: 205,
