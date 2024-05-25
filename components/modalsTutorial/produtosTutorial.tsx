@@ -4,7 +4,7 @@ import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
-export function ProdutosTutorial() {
+export function ProdutosTutorial({ fecharModalProdutoTutorial }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorial}>
@@ -24,7 +24,7 @@ export function ProdutosTutorial() {
                 </View>
 
                 <View style={estiloModal.baseBtnsModalReduzido}>
-                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido}>
+                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido} onPress={fecharModalProdutoTutorial}>
                         <Text style={ESTILOS.txtBtnDestaque}>Continuar</Text>
                     </TouchableOpacity>
                 </View>

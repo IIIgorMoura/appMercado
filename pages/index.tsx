@@ -7,9 +7,9 @@ import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../styles/ESTILOS';
 import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 import { BemVindoTutorial } from '../components/modalsTutorial/bemVindoTutorial';
+import { InicioTutorial } from '../components/modalsTutorial/inicioTutorial';
 
 export function Home() {
   const navigation = useNavigation();
@@ -29,6 +29,19 @@ export function Home() {
     }
   };
 
+  const verificarModalTutorial = async () => {
+    try {
+      const valor = await AsyncStorage.getItem('modalTutorialExibido');
+      if (valor === null) {
+        // Modal não foi exibido, então exibe e marca como exibido
+        ativoModalTutorial(true);
+        await AsyncStorage.setItem('modalTutorialExibido', 'true');
+      }
+    } catch (error) {
+      console.error('Erro ao verificar se o modal já foi exibido: ', error);
+    }
+  };
+
   const removerLista = async (id) => {
     try {
       const novaLista = listasCompras.filter((item) => item.id !== id);
@@ -41,6 +54,7 @@ export function Home() {
 
   useEffect(() => {
     carregarListasCompras();
+    verificarModalTutorial();
   }, []);
 
   const abrirModalCriarLista = () => {
@@ -50,6 +64,14 @@ export function Home() {
   const fecharModalCriarLista = () => {
     setModalCriarLista(false);
   };
+
+  const fecharModalBemVindo = () => {
+    ativoModalTutorialInicial(true);
+    ativoModalTutorial(false);
+  };
+  const fecharModalTutorialInicio = () => {
+    ativoModalTutorialInicial(false)
+  }
 
   const handleAdicionarLista = async (nomeLista, limite, tipoCompra) => {
     try {
@@ -111,9 +133,14 @@ export function Home() {
         animationType="fade"
         transparent={true}
         visible={modalTutorial}>
-        <BemVindoTutorial />
+        <BemVindoTutorial fecharModalBemVindo={fecharModalBemVindo} />
       </Modal>
-
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalTutorialInicial}>
+        <InicioTutorial fecharModalTutorialInicio={fecharModalTutorialInicio} />
+      </Modal>
 
 
       <Modal

@@ -4,7 +4,7 @@ import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-export function BemVindoTutorial() {
+export function BemVindoTutorial({fecharModalBemVindo }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorialBemVindo}>
@@ -18,7 +18,7 @@ export function BemVindoTutorial() {
 
 
                 <View style={estiloModal.baseBtnsModalReduzido}>
-                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido}>
+                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido} onPress={fecharModalBemVindo}>
                         <Text style={ESTILOS.txtBtnDestaque}>Próximo</Text>
                     </TouchableOpacity>
                 </View>

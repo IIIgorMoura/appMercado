@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View, Image, Modal, ScrollView } from 'react-native';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ESTILOS from '../styles/ESTILOS';
 import { NovoProduto } from '../components/NovoProduto';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { ProdutosTutorial } from '../components/modalsTutorial/produtosTutorial';
 
 export function Produtos() {
   const navigation = useNavigation();
   const [ativoModalNovoProduto, setModalNovoProduto] = useState(false);
+  const [ativoModalProdutoTutorial, setModalProdutoTutorial] = useState(false);
 
   const abrirModalNovoProduto = () => {
     setModalNovoProduto(true);
@@ -16,6 +20,27 @@ export function Produtos() {
 
   const fecharModalNovoProduto = () => {
     setModalNovoProduto(false);
+  };
+
+  const verificarModalTutorialProduto = async () => {
+    try {
+      const valor = await AsyncStorage.getItem('modalTutorialProdutosExibido');
+      if (valor === null) {
+        // Modal não foi exibido, então exibe e marca como exibido
+        setModalProdutoTutorial(true);
+        await AsyncStorage.setItem('modalTutorialProdutosExibido', 'true');
+      }
+    } catch (error) {
+      console.error('Erro ao verificar se o modal já foi exibido: ', error);
+    }
+  };
+
+  useEffect(() => {
+    verificarModalTutorialProduto(); // Verifica se o modal de tutorial já foi exibido
+  }, []);
+
+  const fecharModalProdutoTutorial = () => {
+    setModalProdutoTutorial(false);
   };
 
   return (
@@ -70,6 +95,15 @@ export function Produtos() {
         </TouchableOpacity>
       </ScrollView>
 
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={ativoModalProdutoTutorial}
+        onRequestClose={fecharModalProdutoTutorial}
+      >
+        <ProdutosTutorial fecharModalProdutoTutorial={fecharModalProdutoTutorial} />
+      </Modal>
+
       <StatusBar style="light" />
     </View>
   );
@@ -99,3 +133,4 @@ const styleProdutos = StyleSheet.create({
     fontWeight: '600',
   }
 });
+export default Produtos;

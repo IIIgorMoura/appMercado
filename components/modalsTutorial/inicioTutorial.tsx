@@ -4,12 +4,12 @@ import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
 import Octicons from '@expo/vector-icons/Octicons';
 
-export function InicioTutorial() {
+export function InicioTutorial({ fecharModalTutorialInicio }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorial}>
-                <Octicons name="checklist" size={24} color="black" />
-                <Text style={estiloModal.tituloModal}>PÁGINA INÍCIO</Text>
+                <Octicons name="checklist" size={50} color="black" />
+                <Text style={estiloModal.tituloModal}>PÁGINA INÍCIAL</Text>
 
                 <View style={estiloModal.txtModalReduzidoTutorial}>
                     <Text >Nesta página você pode:</Text>
@@ -23,7 +23,7 @@ export function InicioTutorial() {
                 </View>
 
                 <View style={estiloModal.baseBtnsModalReduzido}>
-                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido}>
+                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido} onPress={fecharModalTutorialInicio}>
                         <Text style={ESTILOS.txtBtnDestaque}>Continuar</Text>
                     </TouchableOpacity>
                 </View>
