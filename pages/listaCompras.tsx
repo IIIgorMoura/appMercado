@@ -7,7 +7,6 @@ import ESTILOS from '../styles/ESTILOS';
 import { AddProdutoLista } from '../components/AddProdutoLista';
 import { AvisoLimiteCusto } from '../components/AvisoLimiteCusto';
 import { obterListaPorId } from '../hooks/bancoLista';
-import EditarProdutoPRODUTO from '../components/modalsProdutoCategoria/editarProdutoPRODUTO';  // Importa o modal de edição de produto
 
 interface RouteParams {
     listaId?: number;
@@ -20,8 +19,6 @@ export function ListaCompras({ }) {
     const [lista, setLista] = useState(null);
     const [produtos, setProdutos] = useState([]);
     const [modalAddProdutoVisible, setModalAddProdutoVisible] = useState(false);
-    const [modalEditarProdutoVisible, setModalEditarProdutoVisible] = useState(false);
-    const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [totalPreco, setTotalPreco] = useState(0);
     const [modalLimiteAlcancadoVisivel, setModalLimiteAlcancadoVisivel] = useState(false);
 
@@ -88,24 +85,6 @@ export function ListaCompras({ }) {
         setModalAddProdutoVisible(false);
     };
 
-    const abrirModalEditarProduto = (produto) => {
-        setProdutoSelecionado(produto);
-        setModalEditarProdutoVisible(true);
-    };
-
-    const fecharModalEditarProduto = () => {
-        setModalEditarProdutoVisible(false);
-        setProdutoSelecionado(null);
-    };
-
-    const atualizarProduto = async (produtoAtualizado) => {
-        const produtosAtualizados = produtos.map(produto => 
-            produto.id === produtoAtualizado.id ? { ...produto, ...produtoAtualizado } : produto
-        );
-        await atualizarProdutos(produtosAtualizados);
-        fecharModalEditarProduto();
-    };
-
     const calcularTotal = (produtos, limite) => {
         const total = produtos.reduce((acc, produto) => acc + (produto.quantidade * produto.preco), 0);
         setTotalPreco(total);
@@ -143,55 +122,55 @@ export function ListaCompras({ }) {
 
     return (
         <View style={ESTILOS.container}>
-            <View>
-                <Text style={styles.title}>{lista.nomeLista}</Text>
-                <Text style={styles.subtitle}>Limite de Custo: R${lista.limite.toFixed(2)}</Text>
-                <Text style={[styles.totalPreco, totalPreco >= lista.limite ? styles.totalPrecoLimite : {}]}>
-                    Total da Lista: R${totalPreco.toFixed(2)}
-                </Text>
-            </View>
-
             <FlatList
-                style={ESTILOS.listaElementos}
+                style={styles.listaElementos}
                 data={produtos}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
                     const precoTotalProduto = item.quantidade * item.preco;
                     return (
-                        <View style={ESTILOS.listaItem}>
+                        <View style={styles.listaItem}>
+                              
                             <View style={styles.listaTexto}>
-                                <Text style={ESTILOS.listaItemTitulo}>{item.nome}</Text>
-                                <Text style={styles.produtoQuantidade}>Quantidade: {item.quantidade}</Text>
+                                <Text style={styles.listaItemTitulo}>{item.nome}</Text>
                                 <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                                 <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
                             </View>
                             <View style={styles.itemAcoes}>
-                                <View style={styles.iconesDireita}>
-                                    <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
+                                
+                                <View style={styles.quantidadeContainer}>
+                                <TouchableOpacity onPress={() => handleIncrementarQuantidade(item.id)}>
                                         <Ionicons name="add-circle-outline" style={styles.adicionar} />
                                     </TouchableOpacity>
+                                    <Text style={styles.produtoQuantidade}>{item.quantidade}</Text>
                                     <TouchableOpacity onPress={() => handleDecrementarQuantidade(item.id)}>
                                         <Ionicons name="remove-circle-outline" style={styles.remover} />
                                     </TouchableOpacity>
-                                </View>
-                                <View style={styles.iconesEsquerda}>
-                                    {/* <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
-                                        <Ionicons name="create-outline" style={styles.editar} />
-                                    </TouchableOpacity> */}
+                                    </View>
                                     <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
-                                        <Ionicons name="trash-bin-outline" style={styles.lixo} />
-                                    </TouchableOpacity>
-                                </View>
+                                    <Ionicons name="trash-bin-outline" style={styles.lixo} />
+                                </TouchableOpacity>
+                                
                             </View>
                         </View>
                     );
                 }}
             />
 
-            <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalAddProduto}>
-                <Text style={ESTILOS.txtBtnDestaque}>Adicionar Produtos</Text>
-                <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
-            </TouchableOpacity>
+            <View style={styles.footer}>
+                <View>
+                    <Text style={styles.title}>{lista.nomeLista}</Text>
+                    <Text style={styles.subtitle}>Limite de Custo: R${lista.limite.toFixed(2)}</Text>
+                    <Text style={[styles.totalPreco, totalPreco >= lista.limite ? styles.totalPrecoLimite : {}]}>
+                        Total da Lista: R${totalPreco.toFixed(2)}
+                    </Text>
+                </View>
+
+                <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalAddProduto}>
+                    <Text style={ESTILOS.txtBtnDestaque}>Adicionar Produtos</Text>
+                    <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
+                </TouchableOpacity>
+            </View>
 
             <Modal
                 animationType="slide"
@@ -208,19 +187,6 @@ export function ListaCompras({ }) {
                 />
             </Modal>
 
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalEditarProdutoVisible}
-                onRequestClose={fecharModalEditarProduto}
-            >
-                <EditarProdutoPRODUTO
-                    produto={produtoSelecionado}
-                    fecharModal={fecharModalEditarProduto}
-                    atualizarProdutos={atualizarProduto}
-                />
-            </Modal>
-
             <AvisoLimiteCusto
                 modalAvisoVisivel={modalLimiteAlcancadoVisivel}
                 aoContinuar={continuarAdicionandoProdutos}
@@ -231,104 +197,117 @@ export function ListaCompras({ }) {
 }
 
 const styles = StyleSheet.create({
-    listaProdutos: {
-        paddingBottom: 100,
-    },
     container: {
         flex: 1,
         padding: 20,
         backgroundColor: '#fff',
     },
     title: {
-        fontSize: 40,
+        fontSize: 28,
         fontWeight: '700',
         marginBottom: 10,
-        marginTop: '5%',
     },
     subtitle: {
         fontWeight: '600',
-        marginVertical: 5,
-        fontSize: 15,
+        marginBottom: 0,
+        fontSize: 16,
         textAlign: 'center',
     },
     totalPreco: {
         fontSize: 18,
         fontWeight: '700',
         color: 'green',
-        marginBottom: 20,
         textAlign: 'center',
+        marginTop: 10,
     },
     totalPrecoLimite: {
         color: 'red',
         textAlign: 'center',
         fontSize: 18,
         fontWeight: '700',
+        marginTop: 10,
     },
     produtoQuantidade: {
-        fontSize: 16,
+        fontSize: 20,
+        fontWeight: 'bold',
     },
     produtoPreco: {
-        fontSize: 16,
+        fontSize: 15,
         color: 'gray',
+        marginBottom: 3,
     },
     produtoPrecoTotal: {
-        fontSize: 16,
-        color: 'blue',
+        fontSize: 15,
+        color: '#6622F6',
     },
     itemAcoes: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        position: 'relative',
     },
-    iconesDireita: {
-        flexDirection: 'column',
+    quantidadeContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
-        position: 'absolute',
-        right: 10,
-        top: '30%',
-    },
-    iconesEsquerda: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'absolute',
-        left: 10,
-        top: '30%',
+        marginTop:'-50%',
     },
     adicionar: {
         color: 'green',
-        fontSize: 40,
-        marginVertical: 10,
+        fontSize: 30,
+        marginRight: 10,
     },
     remover: {
         color: 'red',
-        fontSize: 40,
-        marginVertical: 10,
-    },
-    editar: {
-        color: 'blue',
         fontSize: 30,
-        marginVertical: 10,
+        marginLeft: 10,
     },
     lixo: {
         color: 'red',
-        fontSize: 30,
-        marginVertical: 10,
-    },
-    btnAdicionar: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#007bff',
-        alignItems: 'center',
-        borderRadius: 5,
-    },
-    btnAdicionarText: {
-        color: '#fff',
-        fontSize: 18,
+        fontSize: 24,
+        marginTop:50,
+        marginLeft:-25,
     },
     listaTexto: {
+        marginLeft:'20%'
+    },
+    listaItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: '#f9f9f9',
+        padding: 15,
+        marginTop: 10,
+       
+        borderRadius: 25,
+        width: '95%',
+        left:10,
+       
+    },
+    footer: {
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingVertical: 10,
+        borderLeftWidth: 2, 
+        borderRightWidth: 2,
+        borderTopWidth: 2,
+        borderTopColor: '#6622F6',
+    },
+    
+    
+    listaElementos: {
         flex: 1,
+        marginBottom: 205,
+    },
+    listaItemTitulo: {
+        fontSize: 20,
+        fontWeight: '700',
     },
 });
+
 
 export default ListaCompras;
