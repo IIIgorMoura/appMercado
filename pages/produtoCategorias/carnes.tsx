@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 import { obterProdutos, removerProduto, atualizarProduto } from '../../hooks/bancoProduto';
 import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../../styles/ESTILOS';
 import EditarProdutoPRODUTO from '../../components/modalsProdutoCategoria/editarProdutoPRODUTO';
+
+const icones = {
+    vegetais: require('../../assets/icons/produtoVegetal.png'),
+    carnes: require('../../assets/icons/produtoCarne.png'),
+    padaria: require('../../assets/icons/produtoPadaria.png'),
+    frutas: require('../../assets/icons/produtoFruta.png'),
+    limpeza: require('../../assets/icons/produtoLimpeza.png'),
+    outros: require('../../assets/icons/produtoOutros.png'),
+};
 
 export function Carnes() {
     const [produtos, setProdutos] = useState([]);
@@ -48,20 +57,25 @@ export function Carnes() {
         }
     };
 
-    const renderItem = ({ item }) => (
-        <View style={styles.item}>
-            <View>
-                <Text style={styles.title}>{item.nome}</Text>
-                <Text style={styles.subTitle}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
+    const renderItem = ({ item }) => {
+        const iconeProduto = icones[item.tipo] || icones.outros;
+
+        return (
+            <View style={styles.item}>
+                <Image source={iconeProduto} style={styles.iconeProduto} />
+                <View style={styles.itemTexto}>
+                    <Text style={styles.title}>{item.nome}</Text>
+                    <Text style={styles.subTitle}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
+                </View>
+                <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
+                    <Ionicons name="trash-bin-outline" style={styles.lixo} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => abrirModalEditar(item)}>
+                    <Ionicons name="create-outline" style={styles.edit} />
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
-                <Ionicons name="trash-bin-outline" style={styles.lixo} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => abrirModalEditar(item)}>
-                <Ionicons name="create-outline" style={styles.edit} />
-            </TouchableOpacity>
-        </View>
-    );
+        );
+    };
 
     return (
         <View style={ESTILOS.container}>
@@ -95,36 +109,38 @@ const styles = StyleSheet.create({
         padding: 20,
         width: 370,
         height: 100,
-
         marginVertical: '3%',
         borderRadius: 25,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    iconeProduto: {
+        width: 50,
+        height: 50,
+        marginRight: 10,
+    },
+    itemTexto: {
+        flex: 1,
     },
     title: {
         fontSize: 20,
         fontWeight: '800',
     },
-
     subTitle: {
         marginTop: 10,
         color: '#9868FF',
         fontWeight: '400',
         fontSize: 20,
     },
-
     lixo: {
         color: 'red',
         fontSize: 30,
-        marginLeft: '85%',
-        marginTop: '-8%'
-
+        marginLeft: 10,
     },
-
     edit: {
         color: 'blue',
         fontSize: 30,
-        marginLeft: '86%',
-        marginTop: '-23%'
-
+        marginLeft: 10,
     }
 });
 
