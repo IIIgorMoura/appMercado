@@ -1,12 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, TouchableOpacity, View, Modal, FlatList } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Modal, FlatList, Image } from 'react-native';
 import { useState, useEffect } from "react";
 import { CriarLista } from '../components/CriarLista';
 import { Ionicons } from '@expo/vector-icons';
 import ESTILOS from '../styles/ESTILOS';
 import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import { BemVindoTutorial } from '../components/modalsTutorial/bemVindoTutorial';
 
@@ -61,9 +62,17 @@ export function Home() {
   };
 
   const [modalTutorial, ativoModalTutorial] = useState(false)
+  const [modalTutorialInicial, ativoModalTutorialInicial] = useState(false)
   const abrirModalTutorial = () => {
     ativoModalTutorial(true)
   }
+
+  const tipoCompraIcones = {
+    "Compra do Mês": require('../assets/icons/listaMes.png'),
+    "Compra da Semana": require('../assets/icons/listaSemana.png'),
+    "Compra do Dia": require('../assets/icons/listaDia.png'),
+    "HortiFruti": require('../assets/icons/listaHortifruti.png'),
+  };
 
   return (
     <View style={ESTILOS.container}>
@@ -81,7 +90,12 @@ export function Home() {
           <TouchableOpacity style={ESTILOS.listaItem} onPress={() => navegarParaListaCompras(item.id)}>
             <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
-            <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image source={tipoCompraIcones[item.tipoCompra]} style={{ width: 20, height: 20, marginRight: 5 }} />
+              <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+            </View>
+
             <TouchableOpacity onPress={() => removerLista(item.id)}>
               <Ionicons name="trash-bin-outline" style={ESTILOS.remover} />
             </TouchableOpacity>
@@ -91,7 +105,7 @@ export function Home() {
       />
 
       <TouchableOpacity onPress={abrirModalTutorial}>
-        <Text>Abrir modal tutorial</Text>
+        <Text>Resetar AsyncStorage</Text>
       </TouchableOpacity>
       <Modal
         animationType="fade"
