@@ -55,24 +55,24 @@ export function Vegetais() {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: '#fff',
-    padding: 20,
-    width: 370,
-    height: 100,
-    
-    marginVertical: '3%',
-    borderRadius: 25,
+      backgroundColor: '#fff',
+      padding: 20,
+      width: 370,
+      height: 100,
+
+      marginVertical: '3%',
+      borderRadius: 25,
   },
   title: {
-    fontSize: 20,
-    fontWeight : '800',
+      fontSize: 20,
+      fontWeight: '800',
   },
 
   subTitle: {
-marginTop: 10,
-color: '#9400d3',
-fontWeight : '400',
-fontSize: 20,
+      marginTop: 10,
+      color: '#9868FF',
+      fontWeight: '400',
+      fontSize: 20,
   },
 
   lixo: {
@@ -80,6 +80,16 @@ fontSize: 20,
       fontSize: 30,
       marginLeft: '85%',
       marginTop: '-8%'
-     
-        },
+
+  },
+
+  edit: {
+      color: 'blue',
+      fontSize: 30,
+      marginLeft: '86%',
+      marginTop: '-23%'
+
+  }
 });
+
+export default Vegetais;

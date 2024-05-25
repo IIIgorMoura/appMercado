@@ -27,7 +27,7 @@ export function EditarProdutoPRODUTO({ produto, fecharModal, atualizarProdutos }
     return (
         <View style={estiloModal.container}>
             <View style={estiloModal.content}>
-                <Text>Editar Produto</Text>
+                <Text style={estiloModal.tituloModal}>Editar Produto</Text>
                 <View style={estiloModal.formInput}>
                     <Text style={estiloModal.formInputText}>Nome do Produto</Text>
                     <TextInput
@@ -49,7 +49,9 @@ export function EditarProdutoPRODUTO({ produto, fecharModal, atualizarProdutos }
                         keyboardType="numeric"
                     />
                 </View>
+
                 <View style={estiloModal.baseBtnsModal}>
+                    
                     <TouchableOpacity style={estiloModal.btnVoltar} onPress={fecharModal}>
                         <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
                     </TouchableOpacity>
@@ -63,6 +65,8 @@ export function EditarProdutoPRODUTO({ produto, fecharModal, atualizarProdutos }
     );
 }
 
-const estiloModalEspecifico = StyleSheet.create({});
+const estiloModalEspecifico = StyleSheet.create({
+    
+});
 
 export default EditarProdutoPRODUTO;

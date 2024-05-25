@@ -58,6 +58,7 @@ const estiloModal = StyleSheet.create({
         width: '95%',
         height: '10%',
         justifyContent: 'center',
+        marginTop:10,
     },
     formInput: {
         width: '95%',
@@ -74,6 +75,7 @@ const estiloModal = StyleSheet.create({
         borderTopWidth: 0,
         borderLeftWidth: 0,
         borderRightWidth: 0,
+        
     },
 
     tituloModal: {

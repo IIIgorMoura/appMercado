@@ -28,9 +28,11 @@ const ESTILOS = StyleSheet.create({
   },
   txtBranco: {
     color: '#fff',
+    fontWeight:'bold'
   },
   txtRoxo: {
     color: "#6622F6",
+    fontWeight:'bold'
   },
   btnDestaque: {
     width: '90%',

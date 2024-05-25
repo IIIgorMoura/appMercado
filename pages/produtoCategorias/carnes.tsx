@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
 
     edit: {
-        color: '#000',
+        color: 'blue',
         fontSize: 30,
         marginLeft: '86%',
         marginTop: '-23%'
