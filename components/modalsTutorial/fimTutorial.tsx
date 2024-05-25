@@ -4,7 +4,7 @@ import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-export function FimTutorial() {
+export function FimTutorial({ fecharModalFimTutorial }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorialBemVindo}>
@@ -12,12 +12,12 @@ export function FimTutorial() {
                 <Text style={estiloModal.tituloModal}>SUA VEZ!</Text>
 
                 <View style={estiloModal.txtModalReduzido}>
-                    <Text >Comece adicionando produtos</Text>
-                    <Text>Assim você pode usa-los em listas futuras!</Text>
+                    <Text>Comece adicionando produtos</Text>
+                    <Text>Assim você pode usá-los em listas futuras!</Text>
                 </View>
 
                 <View style={estiloModal.baseBtnsModalReduzido}>
-                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido}>
+                    <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido} onPress={fecharModalFimTutorial}>
                         <Text style={ESTILOS.txtBtnDestaque}>Concluir</Text>
                     </TouchableOpacity>
                 </View>

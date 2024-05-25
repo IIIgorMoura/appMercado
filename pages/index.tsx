@@ -96,6 +96,15 @@ export function Home() {
     "HortiFruti": require('../assets/icons/listaHortifruti.png'),
   };
 
+  const limparAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+      console.log('AsyncStorage limpo com sucesso!');
+    } catch (error) {
+      console.error('Erro ao limpar AsyncStorage: ', error);
+    }
+  };
+
   return (
     <View style={ESTILOS.container}>
       <Text style={ESTILOS.titulo}>SUAS LISTAS</Text>
@@ -126,7 +135,7 @@ export function Home() {
         keyExtractor={(item) => item.id.toString()}
       />
 
-      <TouchableOpacity onPress={abrirModalTutorial}>
+      <TouchableOpacity onPress={limparAsyncStorage}>
         <Text>Resetar AsyncStorage</Text>
       </TouchableOpacity>
       <Modal

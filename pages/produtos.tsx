@@ -1,18 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View, Image, Modal, ScrollView } from 'react-native';
-import { useState, useEffect } from "react";
+import { useState, useCallback } from 'react';
 import ESTILOS from '../styles/ESTILOS';
 import { NovoProduto } from '../components/NovoProduto';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ProdutosTutorial } from '../components/modalsTutorial/produtosTutorial';
+import { FimTutorial } from '../components/modalsTutorial/fimTutorial';
 
 export function Produtos() {
   const navigation = useNavigation();
   const [ativoModalNovoProduto, setModalNovoProduto] = useState(false);
   const [ativoModalProdutoTutorial, setModalProdutoTutorial] = useState(false);
+  const [ativoModalFimTutorial, setModalFimTutorial] = useState(false);
 
   const abrirModalNovoProduto = () => {
     setModalNovoProduto(true);
@@ -26,26 +28,37 @@ export function Produtos() {
     try {
       const valor = await AsyncStorage.getItem('modalTutorialProdutosExibido');
       if (valor === null) {
-        // Modal não foi exibido, então exibe e marca como exibido
         setModalProdutoTutorial(true);
         await AsyncStorage.setItem('modalTutorialProdutosExibido', 'true');
+      }
+
+      const deveExibirFimTutorial = await AsyncStorage.getItem('deveExibirFimTutorial');
+      if (deveExibirFimTutorial === 'true') {
+        setModalFimTutorial(true);
+        await AsyncStorage.removeItem('deveExibirFimTutorial');
       }
     } catch (error) {
       console.error('Erro ao verificar se o modal já foi exibido: ', error);
     }
   };
 
-  useEffect(() => {
-    verificarModalTutorialProduto(); // Verifica se o modal de tutorial já foi exibido
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      verificarModalTutorialProduto();
+    }, [])
+  );
 
   const fecharModalProdutoTutorial = () => {
     setModalProdutoTutorial(false);
   };
 
+  const fecharModalFimTutorial = () => {
+    setModalFimTutorial(false);
+  };
+
   return (
     <View style={ESTILOS.container}>
-     <Text style={ESTILOS.titulo}>CATEGORIA DE PRODUTOS</Text>
+      <Text style={ESTILOS.titulo}>CATEGORIA DE PRODUTOS</Text>
 
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalNovoProduto}>
         <Text style={ESTILOS.txtBtnDestaque}>Adicionar Novo Produto</Text>
@@ -104,6 +117,15 @@ export function Produtos() {
         <ProdutosTutorial fecharModalProdutoTutorial={fecharModalProdutoTutorial} />
       </Modal>
 
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={ativoModalFimTutorial}
+        onRequestClose={fecharModalFimTutorial}
+      >
+        <FimTutorial fecharModalFimTutorial={fecharModalFimTutorial} />
+      </Modal>
+
       <StatusBar style="light" />
     </View>
   );
@@ -115,10 +137,8 @@ const styleProdutos = StyleSheet.create({
     height: 300,
     backgroundColor: '#fff',
     alignItems: 'center',
-    
     borderRadius: 25,
     marginVertical: 10,
-    
   },
   imgProdutos: {
     width: '100%',
@@ -133,4 +153,5 @@ const styleProdutos = StyleSheet.create({
     fontWeight: '600',
   }
 });
+
 export default Produtos;

@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ESTILOS from '../styles/ESTILOS';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CalculadoraTutorial } from '../components/modalsTutorial/calculadoraTutorial';
 
 export function Calculadora() {
     const [exibicao, setExibicao] = useState('');
     const [resultado, setResultado] = useState('');
+    const [modalCalculadoraTutorial, setModalCalculadoraTutorial] = useState(false)
+
+    const verificarModalTutorialCalculadora = async () => {
+        try {
+            const valor = await AsyncStorage.getItem('modalTutorialCalculadoraExibido');
+            if (valor === null) {
+                // Modal não foi exibido, então exibe e marca como exibido
+                setModalCalculadoraTutorial(true);
+                await AsyncStorage.setItem('modalTutorialCalculadoraExibido', 'true');
+            }
+        } catch (error) {
+            console.error('Erro ao verificar se o modal já foi exibido: ', error);
+        }
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            verificarModalTutorialCalculadora(); // Verifica se o modal de tutorial já foi exibido ao ganhar o foco
+        }, [])
+    );
+
+    const fecharModalTutorialCalculadora = () => {
+        setModalCalculadoraTutorial(false);
+    }
 
     const handlePressionar = (value: string) => {
         if (value === '=') {
@@ -100,6 +127,14 @@ export function Calculadora() {
                     </TouchableOpacity>
                 ))}
             </View>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalCalculadoraTutorial}
+                style={ESTILOS.modal}>
+                <CalculadoraTutorial fecharModalTutorialCalculadora={fecharModalTutorialCalculadora} />
+            </Modal>
         </View>
     );
 }
@@ -118,8 +153,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10,
         borderRadius: 20,
-        
-        
+
+
     },
     exibicao: {
         fontSize: 32,
