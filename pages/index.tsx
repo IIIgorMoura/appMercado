@@ -8,6 +8,8 @@ import ESTILOS from '../styles/ESTILOS';
 import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { BemVindoTutorial } from '../components/modalsTutorial/bemVindoTutorial';
+
 export function Home() {
   const navigation = useNavigation();
   const navegarParaListaCompras = (id: number) => {
@@ -58,6 +60,11 @@ export function Home() {
     }
   };
 
+  const [modalTutorial, ativoModalTutorial] = useState(false)
+  const abrirModalTutorial = () => {
+    ativoModalTutorial(true)
+  }
+
   return (
     <View style={ESTILOS.container}>
       <Text style={ESTILOS.titulo}>SUAS LISTAS</Text>
@@ -76,12 +83,22 @@ export function Home() {
             <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
             <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
-              <Ionicons name="trash-bin-outline"  style={ESTILOS.remover} />
+              <Ionicons name="trash-bin-outline" style={ESTILOS.remover} />
             </TouchableOpacity>
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
       />
+
+      <TouchableOpacity onPress={abrirModalTutorial}>
+        <Text>Abrir modal tutorial</Text>
+      </TouchableOpacity>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalTutorial}>
+        <BemVindoTutorial />
+      </Modal>
 
 
 

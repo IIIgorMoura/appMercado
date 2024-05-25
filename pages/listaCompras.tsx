@@ -175,9 +175,9 @@ export function ListaCompras({ }) {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={styles.iconesEsquerda}>
-                                    <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
+                                    {/* <TouchableOpacity onPress={() => abrirModalEditarProduto(item)}>
                                         <Ionicons name="create-outline" style={styles.editar} />
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                     <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
                                         <Ionicons name="trash-bin-outline" style={styles.lixo} />
                                     </TouchableOpacity>
