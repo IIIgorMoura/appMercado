@@ -50,12 +50,12 @@ export function AddVegetais({ fecharModalCategoria, adicionarProdutos }) {
         <Text style={estiloModalEspecifico.itemPreco}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
       </View>
       <View style={estiloModalEspecifico.quantidadeContainer}>
-        <TouchableOpacity onPress={() => diminuirQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
-          <Ionicons name="remove-circle-outline" size={24} color="#000" />
+      <TouchableOpacity onPress={() => aumentarQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
+          <Ionicons name="add-circle-outline" size={30} color="green" />
         </TouchableOpacity>
         <Text style={estiloModalEspecifico.textoQuantidade}>{quantidades[item.id]}</Text>
-        <TouchableOpacity onPress={() => aumentarQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
-          <Ionicons name="add-circle-outline" size={24} color="#000" />
+        <TouchableOpacity onPress={() => diminuirQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
+          <Ionicons name="remove-circle-outline" size={30} color="red" />
         </TouchableOpacity>
       </View>
     </View>

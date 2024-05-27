@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { obterProdutos } from '../../hooks/bancoProduto';
 import ESTILOS from '../../styles/ESTILOS';
-import estiloModal from '../../styles/estiloModal';
 
 export function AddCarnes({ fecharModalCategoria, adicionarProdutos }) {
   const [produtos, setProdutos] = useState([]);
@@ -11,8 +11,8 @@ export function AddCarnes({ fecharModalCategoria, adicionarProdutos }) {
   useEffect(() => {
     const carregarProdutos = async () => {
       try {
-        const todosProdutos = await obterProdutos();
-        const produtosCarnes = todosProdutos.filter(produto => produto.tipo === 'carnes');
+        const todosCarnes = await obterProdutos();
+        const produtosCarnes = todosCarnes.filter(produto => produto.tipo === 'carnes');
         const quantidadesInicial = {};
         produtosCarnes.forEach(produto => {
           quantidadesInicial[produto.id] = 0;
@@ -45,15 +45,17 @@ export function AddCarnes({ fecharModalCategoria, adicionarProdutos }) {
 
   const renderItem = ({ item }) => (
     <View style={estiloModalEspecifico.itemContainer}>
-      <Text style={estiloModalEspecifico.itemNome}>{item.nome}</Text>
-      <Text style={estiloModalEspecifico.itemPreco}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
+      <View style={estiloModalEspecifico.itemInfo}>
+        <Text style={estiloModalEspecifico.itemNome}>{item.nome}</Text>
+        <Text style={estiloModalEspecifico.itemPreco}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
+      </View>
       <View style={estiloModalEspecifico.quantidadeContainer}>
-        <TouchableOpacity onPress={() => diminuirQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
-          <Text style={estiloModalEspecifico.textoBotao}>-</Text>
+      <TouchableOpacity onPress={() => aumentarQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
+          <Ionicons name="add-circle-outline" size={30} color="green" />
         </TouchableOpacity>
         <Text style={estiloModalEspecifico.textoQuantidade}>{quantidades[item.id]}</Text>
-        <TouchableOpacity onPress={() => aumentarQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
-          <Text style={estiloModalEspecifico.textoBotao}>+</Text>
+        <TouchableOpacity onPress={() => diminuirQuantidade(item.id)} style={estiloModalEspecifico.botaoQuantidade}>
+          <Ionicons name="remove-circle-outline" size={30} color="red" />
         </TouchableOpacity>
       </View>
     </View>
@@ -75,18 +77,17 @@ export function AddCarnes({ fecharModalCategoria, adicionarProdutos }) {
   return (
     <View style={estiloModalEspecifico.container}>
       <View style={estiloModalEspecifico.content}>
-        <Text>Carnes</Text>
+        <Text style={estiloModalEspecifico.titulo}>Carnes</Text>
         <FlatList
           data={produtos}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
         />
-
-        <View style={estiloModal.baseBtnsModal}>
-          <TouchableOpacity style={estiloModal.btnVoltar} onPress={cancelar}>
+        <View style={estiloModalEspecifico.baseBtnsModal}>
+          <TouchableOpacity style={estiloModalEspecifico.btnVoltar} onPress={cancelar}>
             <Text style={ESTILOS.txtRoxo}>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={estiloModal.btnProximo} onPress={concluir}>
+          <TouchableOpacity style={estiloModalEspecifico.btnProximo} onPress={concluir}>
             <Text style={ESTILOS.txtBranco}>Adicionar</Text>
           </TouchableOpacity>
         </View>
@@ -98,54 +99,93 @@ export function AddCarnes({ fecharModalCategoria, adicionarProdutos }) {
 const estiloModalEspecifico = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'none',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     backgroundColor: "#fff",
-    width: "96%",
+    width: "90%",
     height: 600,
-    paddingTop: 10,
+    paddingTop: 20,
     paddingBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 25,
+    paddingHorizontal: 20,
+  },
+  titulo: {
+    fontSize: 22,
+    fontWeight: '700',
+    marginBottom: 20,
+    alignSelf: 'center',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomColor: '#ccc',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    marginVertical: 5,
+    width: '100%',
+  },
+  itemInfo: {
+    flex: 1,
   },
   quantidadeContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 8,
   },
   botaoQuantidade: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    backgroundColor: '#ccc',
-    borderRadius: 6,
     marginHorizontal: 4,
-  },
-  textoBotao: {
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   textoQuantidade: {
     fontSize: 16,
     fontWeight: 'bold',
     marginHorizontal: 8,
   },
-  itemContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
   itemNome: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   itemPreco: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: 16,
+    color: 'purple',
+  },
+  baseBtnsModal: {
+    flexDirection: 'row',
+    width: '96%',
+    height: '10%',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  btnVoltar: {
+    width: '50%',
+    backgroundColor: "none",
+    borderRadius: 20,
+    borderColor: "#6622F6",
+    borderWidth: 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    left:5,
+    marginTop: 1,
+    marginVertical:15,
+    
+  
+  },
+  btnProximo: {
+    width: '50%',
+    backgroundColor: "#6622F6",
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 1,
+    left:9,
+    marginTop: 1,
+    marginVertical:15,
+
   },
 });
 
