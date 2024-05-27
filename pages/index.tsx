@@ -125,7 +125,7 @@ export function Home() {
               <View style={ESTILOS.listaItemTexto}>
                 <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
                 <Text style={ESTILOS.limiteCusto}>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
-                <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+                <Text style={ESTILOS.limiteCusto}>{`${item.tipoCompra}`}</Text>
               </View>
             </View>
             <TouchableOpacity onPress={() => removerLista(item.id)}>
@@ -137,7 +137,7 @@ export function Home() {
       />
 
       <TouchableOpacity onPress={limparAsyncStorage}>
-        <Text>Resetar AsyncStorage</Text>
+        <Text>Reset AsyncStorage</Text>
       </TouchableOpacity>
       <Modal
         animationType="fade"

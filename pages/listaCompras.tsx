@@ -56,7 +56,7 @@ export function ListaCompras({ }) {
     const atualizarProdutos = async (produtosAtualizados) => {
         await AsyncStorage.setItem(`lista_${listaId}`, JSON.stringify(produtosAtualizados));
         setProdutos(produtosAtualizados);
-
+    
         const totalPrecoCalculado = produtosAtualizados.reduce((acc, produto) => acc + (produto.preco * produto.quantidade), 0);
         setTotalPreco(totalPrecoCalculado);
     };
@@ -136,6 +136,7 @@ export function ListaCompras({ }) {
                 data={produtos}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => {
+                    atualizarProdutos;
                     const precoTotalProduto = item.quantidade * item.preco;
                     const iconeProduto = icones[item.tipo];
 

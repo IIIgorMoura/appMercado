@@ -68,7 +68,7 @@ export function Carnes() {
                     <Text style={styles.subTitle}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
                 </View>
                 <View style={styles.iconesContainer}>
-                <TouchableOpacity onPress={() => abrirModalEditar(item)}>
+                    <TouchableOpacity onPress={() => abrirModalEditar(item)}>
                         <Ionicons name="create-outline" style={styles.edit} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
@@ -98,7 +98,8 @@ export function Carnes() {
                 <EditarProdutoPRODUTO
                     produto={produtoSelecionado}
                     fecharModal={() => setModalVisivel(false)}
-                    atualizarProdutos={handleAtualizarProduto} // Passa a função handleAtualizarProduto
+                    atualizarProdutos={handleAtualizarProduto} // Corrigir a chamada para handleAtualizarProduto
+                    // produtos={produtos}
                 />
             </Modal>
         </View>
