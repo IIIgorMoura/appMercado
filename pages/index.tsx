@@ -13,7 +13,7 @@ import { InicioTutorial } from '../components/modalsTutorial/inicioTutorial';
 
 export function Home() {
   const navigation = useNavigation();
-  const navegarParaListaCompras = (id: number) => {
+  const navegarParaListaCompras = (id) => {
     navigation.navigate('Lista de Compras', { listaId: id });
   };
 
@@ -33,7 +33,6 @@ export function Home() {
     try {
       const valor = await AsyncStorage.getItem('modalTutorialExibido');
       if (valor === null) {
-        // Modal não foi exibido, então exibe e marca como exibido
         ativoModalTutorial(true);
         await AsyncStorage.setItem('modalTutorialExibido', 'true');
       }
@@ -69,9 +68,10 @@ export function Home() {
     ativoModalTutorialInicial(true);
     ativoModalTutorial(false);
   };
+
   const fecharModalTutorialInicio = () => {
-    ativoModalTutorialInicial(false)
-  }
+    ativoModalTutorialInicial(false);
+  };
 
   const handleAdicionarLista = async (nomeLista, limite, tipoCompra) => {
     try {
@@ -83,11 +83,12 @@ export function Home() {
     }
   };
 
-  const [modalTutorial, ativoModalTutorial] = useState(false)
-  const [modalTutorialInicial, ativoModalTutorialInicial] = useState(false)
+  const [modalTutorial, ativoModalTutorial] = useState(false);
+  const [modalTutorialInicial, ativoModalTutorialInicial] = useState(false);
+
   const abrirModalTutorial = () => {
-    ativoModalTutorial(true)
-  }
+    ativoModalTutorial(true);
+  };
 
   const tipoCompraIcones = {
     "Compra do Mês": require('../assets/icons/listaMes.png'),
@@ -110,7 +111,7 @@ export function Home() {
       <Text style={ESTILOS.titulo}>SUAS LISTAS</Text>
       <TouchableOpacity style={ESTILOS.btnDestaque} onPress={abrirModalCriarLista}>
         <Text style={ESTILOS.txtBtnDestaque}>Adicionar Nova Lista</Text>
-        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30}></Ionicons>
+        <Ionicons style={ESTILOS.btnDestaqueIcon} name="add-circle-outline" color="white" size={30} />
       </TouchableOpacity>
 
       <FlatList
@@ -119,16 +120,16 @@ export function Home() {
         data={listasCompras}
         renderItem={({ item }) => (
           <TouchableOpacity style={ESTILOS.listaItem} onPress={() => navegarParaListaCompras(item.id)}>
-            <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
-            <Text>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
-
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image source={tipoCompraIcones[item.tipoCompra]} style={{ width: 20, height: 20, marginRight: 5 }} />
-              <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+            <View style={ESTILOS.listaItemConteudo}>
+              <Image source={tipoCompraIcones[item.tipoCompra]} style={ESTILOS.listaItemIcone} />
+              <View style={ESTILOS.listaItemTexto}>
+                <Text style={ESTILOS.listaItemTitulo}>{item.nomeLista}</Text>
+                <Text style={ESTILOS.limiteCusto}>{`Limite de Custo: R$ ${item.limite.toFixed(2)}`}</Text>
+                <Text style={ESTILOS.limiteCusto}>{`Tipo de Compra: ${item.tipoCompra}`}</Text>
+              </View>
             </View>
-
             <TouchableOpacity onPress={() => removerLista(item.id)}>
-              <Ionicons name="trash-bin-outline" style={ESTILOS.remover} />
+              <Ionicons name="trash-bin-outline"  style={ESTILOS.remover} />
             </TouchableOpacity>
           </TouchableOpacity>
         )}
@@ -151,13 +152,11 @@ export function Home() {
         <InicioTutorial fecharModalTutorialInicio={fecharModalTutorialInicio} />
       </Modal>
 
-
       <Modal
         animationType="fade"
         transparent={true}
         visible={ativoModalCriarLista}
-        style={ESTILOS.modal}
-      >
+        style={ESTILOS.modal}>
         <CriarLista fecharModalCriarLista={fecharModalCriarLista} handleAdicionarLista={handleAdicionarLista} navegarParaListaCompras={navegarParaListaCompras} />
       </Modal>
 
@@ -167,6 +166,7 @@ export function Home() {
 }
 
 const styles = StyleSheet.create({
+  // Estilos podem ser adicionados aqui se necessário
 });
 
 export default Home;

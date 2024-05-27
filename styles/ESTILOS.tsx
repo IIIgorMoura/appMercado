@@ -7,32 +7,10 @@ const ESTILOS = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    backgroundColor: "#6622F6",
-  },
-  headerTabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  headerTab: {
-    marginVertical: 5,
-    backgroundColor: '#9868FF',
-    width: '30%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    height: 25,
-  },
-  txtBranco: {
-    color: '#fff',
-    fontWeight:'bold'
-  },
-  txtRoxo: {
-    color: "#6622F6",
-    fontWeight:'bold'
+  titulo: {
+    fontWeight: '900',
+    fontSize: 25,
+    marginTop: 10,
   },
   btnDestaque: {
     width: '90%',
@@ -49,7 +27,48 @@ const ESTILOS = StyleSheet.create({
     color: "#fff",
   },
   btnDestaqueIcon: {
-    margin: 10,
+    marginHorizontal: 10,
+  },
+  listaElementos: {
+    marginVertical: 10,
+    width: '90%',
+  },
+  listaItem: {
+    width: '100%',
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  listaItemConteudo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+   
+  },
+  listaItemIcone: {
+    width: 45, 
+    height: 45,
+    marginRight: 10,
+  },
+  listaItemTexto: {
+    flex: 1,
+    fontSize: 20, 
+    fontWeight: '500', 
+    marginTop: 5, 
+    marginLeft:20,
+  },
+  limiteCusto: {
+    marginVertical: 2,
+  },
+  remover: {
+    
+    color:'red',
+    right: 30, 
+    fontSize:30,
   },
   modal: {
     backgroundColor: "#000",
@@ -61,56 +80,19 @@ const ESTILOS = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 25,
   },
-  listaElementos: {
-    marginVertical: 10,
-    width: '90%',
-  },
-  listaItemTitulo: {
-    fontSize : 20,
-        fontWeight : '500',
-        marginTop : '5%',
-        marginVertical:5,
-  },
-  listaItem: {
-    width: '100%',
-    height: 160,
-    backgroundColor: '#fff',
-    borderRadius: 25,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-  },
-  categoriaProdutos: {
-    width: '100%',
-    height: 300,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    padding: 20,
-    borderRadius: 25,
-  },
-  imgProdutos: {
-    width: '100%',
-    height: '85%',
+
+  listaItemTitulo:{
+    fontSize:20,
+    fontWeight:'bold',
   },
 
-  titulo: {
+  txtRoxo:{
+    color: "#6622F6",
+  },
 
-    fontWeight: '900',
-    fontSize: 25,
-    marginTop: 10,
-    
-      },
-
-      limiteCusto : {
-        marginVertical:5,
-      },
-
-      remover : {
-        color : 'red',
-      marginLeft : '85%',
-      fontSize: 30,
-      marginTop:'-5%'
-      },
+  txtBranco:{
+    color: "#fff",
+  },
 });
 
-export default ESTILOS
+export default ESTILOS;

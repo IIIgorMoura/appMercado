@@ -264,35 +264,39 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginRight:-10,
     },
     quantidadeContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: '-50%',
+        marginTop: '-55%',
+        marginRight:5,
+        
     },
     adicionar: {
         color: 'green',
         fontSize: 30,
-        marginRight: 10,
+        marginRight: 15,
     },
     remover: {
         color: 'red',
         fontSize: 30,
-        marginLeft: 10,
+        marginLeft: 15,
     },
     lixo: {
         color: 'red',
-        fontSize: 24,
-        marginTop: 50,
-        marginLeft: -25,
+        fontSize: 30,
+        position: 'absolute',
+        right: 5,
+        marginTop:10,
     },
+    
     listaItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#f9f9f9',
         padding: 15,
         marginTop: 10,
-
         borderRadius: 25,
         width: '95%',
         left: 10,

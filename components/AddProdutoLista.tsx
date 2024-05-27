@@ -86,11 +86,9 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalP
 
     return (
         <View style={estiloModal.container}>
-            <View style={[estiloModal.content, { alignItems: 'center' }]}>
-            <Text style={styles.titulo}>Selecione a Categoria do Produto</Text>
-                <ScrollView
-                    style={ESTILOS.listaElementos}
-                    showsVerticalScrollIndicator={false}>
+            <View style={[estiloModal.content, styles.content]}>
+                <Text style={styles.titulo}>Selecione a Categoria do Produto</Text>
+                <ScrollView style={ESTILOS.listaElementos} showsVerticalScrollIndicator={false}>
                     <TouchableOpacity style={styles.categoriaProdutos} onPress={() => abrirModalCategoria('Vegetais')}>
                         <Image style={styles.imgProdutos} source={require('../assets/images/categoriasProdutos/produtosVegetais.png')} />
                         <Text style={styles.txtCategoriaProdutos}>Vegetais</Text>
@@ -149,47 +147,41 @@ export function AddProdutoLista({ fecharModalAddProduto, listaId, limite, totalP
 
 const styles = StyleSheet.create({
     categoriaProdutos: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginVertical: 10,
-      backgroundColor: '#f0f0f0',
-      borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 10,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 10,
+        padding: 10,
     },
     imgProdutos: {
-      width: 60,
-      height: 60,
-      marginRight: 10,
-      borderTopLeftRadius: 5,
-     borderBottomLeftRadius: 5,
+        width: 60,
+        height: 60,
+        marginRight: 10,
+        borderRadius: 5,
     },
     txtCategoriaProdutos: {
-      fontSize: 18,
+        fontSize: 18,
+        fontWeight: '600',
     },
     modalCategoria: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    container: {
-      flex: 1,
-      backgroundColor: 'none',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     content: {
-      backgroundColor: "#fff",
-      width: "8%",
-      height: 600,
-      paddingTop: 10,
-      paddingBottom: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 25,
+        backgroundColor: "#fff",
+        width: "90%",
+        height: 600,
+        paddingTop: 20,
+        paddingBottom: 20,
+    
+        borderRadius: 25,
     },
-
-    titulo:{
-        fontSize:20,
-        fontWeight:'700'
+    titulo: {
+        fontSize: 22,
+        fontWeight: '700',
+        marginBottom: 20,
     }
-  });
+});

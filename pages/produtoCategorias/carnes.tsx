@@ -67,12 +67,14 @@ export function Carnes() {
                     <Text style={styles.title}>{item.nome}</Text>
                     <Text style={styles.subTitle}>{`Preço: R$ ${item.preco.toFixed(2)}`}</Text>
                 </View>
-                <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
-                    <Ionicons name="trash-bin-outline" style={styles.lixo} />
-                </TouchableOpacity>
+                <View style={styles.iconesContainer}>
                 <TouchableOpacity onPress={() => abrirModalEditar(item)}>
-                    <Ionicons name="create-outline" style={styles.edit} />
-                </TouchableOpacity>
+                        <Ionicons name="create-outline" style={styles.edit} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => handleRemoveProduto(item.id)}>
+                        <Ionicons name="trash-bin-outline" style={styles.lixo} />
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     };
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 20,
         width: 370,
-        height: 100,
+        height: 120,
         marginVertical: '3%',
         borderRadius: 25,
         flexDirection: 'row',
@@ -117,10 +119,11 @@ const styles = StyleSheet.create({
     iconeProduto: {
         width: 50,
         height: 50,
-        marginRight: 10,
+        marginRight: 20,
     },
     itemTexto: {
         flex: 1,
+        marginLeft: 25,
     },
     title: {
         fontSize: 20,
@@ -132,15 +135,20 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 20,
     },
+    iconesContainer: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginLeft: 20,
+    },
     lixo: {
         color: 'red',
         fontSize: 30,
-        marginLeft: 10,
+      
     },
     edit: {
         color: 'blue',
         fontSize: 30,
-        marginLeft: 10,
+        marginBottom: 25,
     }
 });
 
