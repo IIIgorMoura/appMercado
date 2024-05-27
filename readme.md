@@ -10,4 +10,3 @@ Adicionar opção de editar listas;
 ---- Corrigir ----
 Atualizar as listas qnd produto do banco de dados é removido ou editado
 Corrigir Alteração de itens ALT valores na página listaCompras
-Modal fake de AddProdutos

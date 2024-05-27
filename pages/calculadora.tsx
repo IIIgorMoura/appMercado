@@ -146,9 +146,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 10,
+        width: '90%',
     },
     displayContainer: {
-        width: '95%',
+        width: '90%',
         backgroundColor: '#f1f3f4',
         marginBottom: 20,
         padding: 10,
@@ -169,13 +170,13 @@ const styles = StyleSheet.create({
     linhaBtnSuperior: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        width: '100%',
+        width: '90%',
         marginVertical: 5,
     },
     linhaBtn: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        width: '100%',
+        width: '90%',
         marginVertical: 5,
     },
     btn: {

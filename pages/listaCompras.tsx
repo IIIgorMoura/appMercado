@@ -145,7 +145,7 @@ export function ListaCompras({ }) {
                                 <Image source={iconeProduto} style={styles.iconeProduto} />
                             </View>
 
-                            <View style={styles.listaTexto}>
+                            <View>
                                 <Text style={styles.listaItemTitulo}>{item.nome}</Text>
                                 <Text style={styles.produtoPreco}>Preço Unitário: R${item.preco.toFixed(2)}</Text>
                                 <Text style={styles.produtoPrecoTotal}>Preço Total: R${precoTotalProduto.toFixed(2)}</Text>
