@@ -61,7 +61,7 @@ const estiloModal = StyleSheet.create({
         marginTop:10,
     },
     formInput: {
-        width: '95%',
+        width: '90%',
     },
     formInputText: {
         marginTop: 30,
