@@ -77,7 +77,7 @@ export const obterProdutos = async () => {
     if (produtos !== null) {
       return JSON.parse(produtos);
     }
-    // Se não houver produtos, retornar produtos padrão
+
     return produtosPadrao;
   } catch (error) {
     console.error('Erro ao obter os produtos: ', error);

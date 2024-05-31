@@ -19,7 +19,7 @@ export function BemVindoTutorial({fecharModalBemVindo }) {
 
                 <View style={estiloModal.baseBtnsModalReduzido}>
                     <TouchableOpacity style={estiloModal.btnDestaqueModalReduzido} onPress={fecharModalBemVindo}>
-                        <Text style={ESTILOS.txtBtnDestaque}>Próximo</Text>
+                        <Text style={ESTILOS.txtBtnDestaque}>Vamos!</Text>
                     </TouchableOpacity>
                 </View>
             </View>

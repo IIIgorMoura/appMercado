@@ -8,7 +8,7 @@ export function DropdownMenuPRODUTO({ onSelect }) {
 
     const handleSelectChange = (itemValue) => {
         setOpcSelecionada(itemValue);
-        onSelect(itemValue); // Chamar a função onSelect passada via props
+        onSelect(itemValue); 
     };
 
     return (

@@ -8,7 +8,7 @@ export const adicionarProdutosNaLista = async (listaId, produtos) => {
   }
 };
 
-// Função para obter todos os produtos de uma lista de compras específica
+
 export const obterProdutosPorListaId = async (listaId) => {
   try {
     const produtos = await AsyncStorage.getItem(`lista_${listaId}`);
@@ -30,21 +30,18 @@ export const obterListaPorId = async (id) => {
   }
 };
 
-// Função para criar uma nova lista de compras
+
 export const adicionarListaCompras = async (nomeLista, limite, tipoCompra) => {
   try {
-    // Obter listas de compras existentes do AsyncStorage
     const listasCompras = await AsyncStorage.getItem('listasCompras');
     let listas = [];
     if (listasCompras !== null) {
       listas = JSON.parse(listasCompras);
     }
 
-    // Adicionar a nova lista de compras à lista existente
     const novaLista = { id: Date.now(), nomeLista, limite, tipoCompra };
     listas.push(novaLista);
 
-    // Salvar a lista de compras atualizada no AsyncStorage
     await AsyncStorage.setItem('listasCompras', JSON.stringify(listas));
 
     return novaLista.id;
@@ -54,7 +51,6 @@ export const adicionarListaCompras = async (nomeLista, limite, tipoCompra) => {
   }
 };
 
-// Função para obter todas as listas de compras
 export const obterListasCompras = async () => {
   try {
     const listasCompras = await AsyncStorage.getItem('listasCompras');

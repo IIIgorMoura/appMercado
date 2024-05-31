@@ -136,9 +136,10 @@ export function Home() {
         keyExtractor={(item) => item.id.toString()}
       />
 
-      <TouchableOpacity onPress={limparAsyncStorage}>
+      {/* <TouchableOpacity onPress={limparAsyncStorage}>
         <Text>Reset AsyncStorage</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+
       <Modal
         animationType="fade"
         transparent={true}
@@ -166,7 +167,7 @@ export function Home() {
 }
 
 const styles = StyleSheet.create({
-  // Estilos podem ser adicionados aqui se necessário
+  
 });
 
 export default Home;

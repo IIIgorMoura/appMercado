@@ -15,7 +15,6 @@ export function Calculadora() {
         try {
             const valor = await AsyncStorage.getItem('modalTutorialCalculadoraExibido');
             if (valor === null) {
-                // Modal não foi exibido, então exibe e marca como exibido
                 setModalCalculadoraTutorial(true);
                 await AsyncStorage.setItem('modalTutorialCalculadoraExibido', 'true');
             }
@@ -26,7 +25,7 @@ export function Calculadora() {
 
     useFocusEffect(
         useCallback(() => {
-            verificarModalTutorialCalculadora(); // Verifica se o modal de tutorial já foi exibido ao ganhar o foco
+            verificarModalTutorialCalculadora(); 
         }, [])
     );
 
