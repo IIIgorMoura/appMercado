@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 export function FimTutorial({ fecharModalFimTutorial }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorialBemVindo}>
-                <FontAwesome6 name="smile-wink" size={50} color="black" />
+                <Image source={require('../../assets/icons/smileIconTutorial.png')} />
                 <Text style={estiloModal.tituloModal}>SUA VEZ!</Text>
 
                 <View style={estiloModal.txtModalReduzido}>

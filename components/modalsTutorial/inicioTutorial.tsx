@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
-import Octicons from '@expo/vector-icons/Octicons';
 
 export function InicioTutorial({ fecharModalTutorialInicio }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorial}>
-                <Octicons name="checklist" size={50} color="black" />
+                <Image source={require('../../assets/icons/listaIconTutorial.png')} />
                 <Text style={estiloModal.tituloModal}>PÁGINA INÍCIAL</Text>
 
                 <View style={estiloModal.txtModalReduzidoTutorial}>

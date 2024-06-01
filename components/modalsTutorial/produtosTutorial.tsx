@@ -1,14 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export function ProdutosTutorial({ fecharModalProdutoTutorial }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorial}>
-                <MaterialCommunityIcons name="food-apple-outline" size={50} color="black" />
+                
+                <Image source={require('../../assets/icons/produtosIconTutorial.png')} />
                 <Text style={estiloModal.tituloModal}>PÁGINA PRODUTOS</Text>
 
                 <View style={estiloModal.txtModalReduzidoTutorial}>

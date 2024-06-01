@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, FlatList, Image } from 'react-native';
 import { useState, useEffect } from "react";
 import { CriarLista } from '../components/CriarLista';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import ESTILOS from '../styles/ESTILOS';
 import { obterListasCompras, adicionarListaCompras } from '../hooks/bancoLista';
 import AsyncStorage from '@react-native-async-storage/async-storage';

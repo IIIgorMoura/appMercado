@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import ESTILOS from "../../styles/ESTILOS";
 import estiloModal from "../../styles/estiloModal";
-import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function CalculadoraTutorial({ fecharModalTutorialCalculadora }) {
@@ -15,7 +14,7 @@ export function CalculadoraTutorial({ fecharModalTutorialCalculadora }) {
     return (
         <View style={estiloModal.containerModalTutorial}>
             <View style={estiloModal.contentReduzidoTutorial}>
-                <Ionicons name="calculator" size={50} color="black" />
+                <Image source={require('../../assets/icons/calcIconTutorial.png')} />
                 <Text style={estiloModal.tituloModal}>Calculadora</Text>
 
                 <View style={estiloModal.txtModalReduzidoTutorial}>

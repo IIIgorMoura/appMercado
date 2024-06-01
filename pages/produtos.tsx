@@ -5,7 +5,7 @@ import { useState, useCallback } from 'react';
 import ESTILOS from '../styles/ESTILOS';
 import { NovoProduto } from '../components/NovoProduto';
 import verificarProdutosPadrao from '../hooks/bancoProduto';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ProdutosTutorial } from '../components/modalsTutorial/produtosTutorial';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { obterProdutos } from '../../hooks/bancoProduto';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import ESTILOS from '../../styles/ESTILOS';
 
 

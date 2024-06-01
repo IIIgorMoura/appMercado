@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
 import { obterProdutos, removerProduto, atualizarProduto } from '../../hooks/bancoProduto';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from 'react-native-vector-icons';
 import ESTILOS from '../../styles/ESTILOS';
 import EditarProdutoPRODUTO from '../../components/modalsProdutoCategoria/editarProdutoPRODUTO';
 
