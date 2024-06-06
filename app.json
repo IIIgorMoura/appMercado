@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ShopList",
-    "slug": "appMercado",
+    "slug": "ShopList",
     "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,16 +22,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.iiimoura.shopsmart",
-      "versionCode":4
+      "package": "com.iiimoura.ShopList",
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "a33adcc6-5b86-47fa-b128-11260e33782e"
+        "projectId": "330ec997-8444-4ff6-bab2-4592554de4de"
       }
-    }
+    },
+    "owner": "iiimoura"
   }
 }
